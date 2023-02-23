@@ -1,0 +1,33 @@
+{% extends "baseTemplate.html" %}
+
+{% block title %} Q&A {% endblock %}
+<body class = "qa-page">
+    {% block pageContent %}
+        <link rel = "stylesheet" href = "{{url_for('static', filename = 'style.css')}}">
+
+        {% with messages = get_flashed_messages() %} 
+            {% if messages %}
+                {% for msg in messages %}
+                    <p id = "successMSG"> {{msg}} </p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class = "login-box">
+            <h2> What is your question?...</h2>
+            <form action = "#" method = "post"> 
+                <div class = "centered-div">
+                    <input type = "text" placeholder = "enter question..." id = "question-box" name = "userQuestion" size = 40/> <!-- name is used in the python stuff and id is used in the css stuff -->
+                    <div class = "centered-div">
+                        <input type = "submit" value = "post" id = "post box" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+    {% endblock %}
+</body>
+
+<!-- 400 200 
+
+    320 30-->

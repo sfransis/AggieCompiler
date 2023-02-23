@@ -1,0 +1,19 @@
+{% extends "baseTemplate.html" %}
+
+{% block title %} 
+    User Page 
+{% endblock %}
+
+{% block pageContent %} 
+    {% with messages = get_flashed_messages() %} 
+        {% if messages %}
+            {% for msg in messages %}
+                <p> {{msg}} </p> <!-- messages come from the flash in the flask file -->
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action = "#" method = "POST">
+        <input type = "email" name = "email" placeholder="Enter email" value = "{{email if email}}"/> 
+        <input type = "submit" value = "submit"/>
+    </form>
+{% endblock %}

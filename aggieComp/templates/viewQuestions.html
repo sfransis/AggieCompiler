@@ -1,0 +1,9 @@
+{% extends "baseTemplate.html" %}
+
+{% block title %} Q&A {% endblock %}
+
+{% block pageContent %}
+    {% for question in userQuestions %}
+        <p> Question: {{question}} </p>
+    {% endfor %}
+{% endblock %}
