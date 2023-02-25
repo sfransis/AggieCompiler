@@ -3,7 +3,7 @@
 {% block title %} Q&A {% endblock %}
 
 {% block pageContent %}
-    {% for question in userQuestions %}
-        <p> Question: {{question}} </p>
+    {% for item in htmlQuestion %}
+        <p> Question: {{item.userQuestion}} Class: {{item.csClass}} </p>
     {% endfor %}
 {% endblock %}

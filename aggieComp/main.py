@@ -15,40 +15,13 @@ from compiler import compiler
 from roadmap import roadmap
 from qANDa import qANDa
 
-app = Flask(__name__)
-app.app_context().push() # there was an error that was saying "working outside of application context" and it was fixed by adding this line...idk what it does
+from run import create_app
 
-#session is encypted in the server which is why we need the secret key 
-# and if we don't then we will get some problem
-app.secret_key = "hello"
-
-# this is being used so that the user can actually get out of the browser and not be
-# logged out imediately. They can come back, say two days later, and not have to log back in. 
-app.permanent_session_lifetime = timedelta(days = 5) # you can use minutes, and days 
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-# creating a db object
-
+from dbModels import *
+#app = create_app()
 app.register_blueprint(qANDa, url_prefix = "")
 app.register_blueprint(compiler, url_prefix = "")
 app.register_blueprint(roadmap, url_prefix = "")
-
-db = SQLAlchemy(app)
-
-# creating a db model
-
-class users(db.Model):
-    _id = db.Column("id", db.Integer, primary_key = True) # each obj in our model is gonna have an "id" which is gonna be an int
-    name = db.Column(db.String(100))
-    email = db.Column(db.String(100))
-
-    # I think these are the things that we for sure need everytime 
-    # as in they are alwasy none empty
-    def __init__(self, name, email):
-        self.name = name 
-        self.email = email
-
 
 # get is not secure 
 # post is secure
