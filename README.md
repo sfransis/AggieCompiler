@@ -5,11 +5,13 @@ This project uses flask and sqlalchemy so if you want to run these files and any
 
 Getting back to the project however, it will have three main functions that come in the form of web pages. Those functions are the following: Compiler, Roadmap, and Q&A. 
 
-Compiler: 
+Compiler IDL (Integrated Development Learning): 
 
-  This is like any other web compiler. You will be able to upload and download files and compile thoes files if they are written in one of the languages
-  we have worked with. This is for a NMSU CS student however so those languages that you can compile in are limited to the languages that have been used
-  and taught in the NMSU CS department. 
+  Our website IDL provides languages that are mainly used and taught at NMSU. By signing up and being logged in you'll be able to download your coding
+  files that you've accomplished and by signing up (creating an account) will require you to use your NMSU email address in order to ensure NMSU students 
+  are primarily the ones to use this website. The compiler itself will run and debug your code and will be available at the home page for practical easy
+  use. 
+  
   
 Roadmap:
 
