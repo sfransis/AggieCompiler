@@ -27,6 +27,7 @@ app.register_blueprint(roadmap, url_prefix = "")
 # post is secure
 
 @app.route("/home")
+@app.route("/")
 def home():
     return render_template("home.html")
 
