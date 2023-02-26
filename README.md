@@ -1,5 +1,5 @@
 # AggieCompiler
-Project that is meant to help newer NMSU CS students on their journey to understanding. 
+This project scope is to provide resources to incoming NMSU students as well as provide a system that professors can use for teaching purposes. 
 
 This project uses flask and sqlalchemy so if you want to run these files and any web pages they create, then you need to have flask and alchemy installed on your device. Later iterations will make it so that this isn't a requirement as we will have uploaded the project somehow. In any case, as of right now, the way to run this project is with the simple command "python main.py" where main is the name of the main file. You can do this in the command line but I imagine that if you have any other ways of running a python file, those ways will also work.
 
