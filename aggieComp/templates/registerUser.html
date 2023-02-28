@@ -1,13 +1,10 @@
 {% extends "baseTemplate.html" %}
 
-{% block title %} 
-    Login Page 
-{% endblock %}
-
-{% block pageContent %} 
-
+{% block title %} Q&A {% endblock %}
+<body class = "register-page">
+    {% block pageContent %}
     <h1>
-        Welcome to the Login Page
+        Welcome to the Register Page
     </h1>
 
     {% with messages = get_flashed_messages() %} 
@@ -18,8 +15,8 @@
         {% endif %}
     {% endwith %}
 
-    <form action = "/register">
-        <input type = "submit" value = "Don't have an account?">
+    <form action = "/login">
+        <input type = "submit" value = "Already have an account?">
     </form>
 
     <form action = "#" method = "POST"> 
@@ -28,4 +25,5 @@
         {{ form.password }}
         {{ form.submit }}
     </form>
-{% endblock %}
+    {% endblock %}
+</body>

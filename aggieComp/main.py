@@ -10,95 +10,86 @@ from flask import Flask, redirect, url_for, render_template, request, session, f
 from datetime import timedelta
 
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import InputRequired, Length, ValidationError
 
 from compiler import compiler
 from roadmap import roadmap
 from qANDa import qANDa
 
-from run import create_app
+from dbModels import * # needed so that db and app can be used in this routes file
 
-from dbModels import *
-#app = create_app()
+login_manager = LoginManager() # allow app and flask login to work together
+login_manager.init_app(app)
+login_manager.login_view = "login"
+
+# blueprints that need to be used from other files 
 app.register_blueprint(qANDa, url_prefix = "")
 app.register_blueprint(compiler, url_prefix = "")
 app.register_blueprint(roadmap, url_prefix = "")
 
+# obj that allows user passwords to be encrypted
+bcrypt = Bcrypt(app)
+
 # get is not secure 
 # post is secure
 
+@login_manager.user_loader # used to reload user object from the session
+def load_user(user_id):
+    return users.query.get(int(user_id))
+
+# routes for the home page
 @app.route("/home")
 @app.route("/")
 def home():
     return render_template("home.html")
 
+# lets you see all of the users and their hashed passwords as long as they have registered 
 @app.route("/view")
 def view():
     return render_template("view.html", values = users.query.all())
 
+# login page route where user can go to be logged in 
 @app.route("/login", methods = ["POST", "GET"])
 def login():
-    if request.method == "POST":
-        session.permanent = True
-        user = request.form["nm"] # you have to use the nm specifically since this is what is being used for the login.html
-
-        #session data is being set up 
-        session["user"] = user
-
-        # check if the user already exist and if they don't then create them 
-        found_user = users.query.filter_by(name = user).first() # finds all the users that have the name typed in by the user in the login page
-        # how to delete 1 entry: users.query.delete() where you can still use the filter by shit. you can also just use users.delete()
-        if found_user: 
-            session["email"] = found_user.email
-        else:
-            usr = users(user, "") # creating a new entry in the db model or "table"
-            db.session.add(usr) # adding this user model to the db
-            db.session.commit()
-
-        flash("login succesful!")
-        return redirect(url_for("user"))
-    # this else is just for when the user is already logged in but tries to go to the login page 
-    # through the url. Which wouldn't make sense since they're already logged in. So they're redirected to the 
-    # user page which just looks like they're staying in the same spot and nothing happens
-    else: 
-        if "user" in session:
-            flash("already logged in!")
-            return redirect(url_for("user"))
-        return render_template("login.html")
-
-@app.route("/user", methods = ["POST", "GET"])
-def user():
-    email = None
-    # getting session data
-    # if is making sure that there is actually some data in the session for the user
-    if "user" in session:
-        user = session["user"]
-        # this if is getting the email if the user hasn't already put it in the session
-        if request.method == "POST":
-            email = request.form["email"] # think this is getting the email from the submit button form
-            session["email"] = email # setting the current sessions info for emal to the email that was put in by the user
-            found_user = users.query.filter_by(name = user).first()
-            found_user.email = email # changing the users email in the db
-            db.session.commit() # i think this makes it so that users email is rememberd through out the session
-            flash("Email was saved!")
-        # else runs to check if the email is already in the session
-        else: 
-            if "email" in session:
-                email = session["email"]
-        return render_template("user.html", email = email)
-    else:
-        flash("you are not logged in!")
-        return redirect(url_for("login"))
+    form = loginForm() # using form that was created in dbModels so that user info can be collected
+    if form.validate_on_submit():
+        user = users.query.filter_by(username = form.username.data).first() # looking for an entry in the users db that has the same username that was enterd by ther person trying to login
+        # if a user with the usernmae that was entered is found in the db then this stuff happens
+        if user:
+            if bcrypt.check_password_hash(user.password, form.password.data): # comparing passwored enterd to password saved in ther users db
+                login_user(user) # some funciton from flask_login that logs in the user...don't know much else about it
+                flash("You have been logged in...") # test template to make sure that login worked <! --- need to change this to an actual page that will be used --- !>
+    return render_template("login.html", form = form)
+    # there are two things that were here. One that flashes "logged in" when you add the  username and shit to the query 
+    # the other is checking the sessions to see if the user is already logged in
 
 # this will delete session info if the usr logsout or something similar
 @app.route("/logout")
 def logout():
-    if "user" in session:
-        user = session["user"]
-        flash("Yu have been logged out...", "info") # second param is the category
-    session.pop("user", None) 
-    session.pop("email", None)
+    logout_user() # another function from flask_login library
+    flash("You have been logged out...", "info") # second param is the category
     return redirect(url_for("login"))
 
+# lets the user create a new account which they can use to login
+@app.route("/register", methods = ["POST", "GET"])
+def register():
+    form = registerForm() # using the form that was created in dbModels which just has the boxes to submit user info
+    if form.validate_on_submit(): # v_on_sub check if it is a post request and if it is valid, returns true if active request
+        hashed_password = bcrypt.generate_password_hash(form.password.data) # getting the users entered password and encrypting it
+
+        # creating a new entry in the users db
+        new_user = users(username = form.username.data, password = hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+
+        # will just take the user to login page after they create and account
+        flash("Your account has been created...")
+    return render_template("registerUser.html", form = form)
+
 if __name__ == "__main__":
-    db.create_all()
+    db.create_all() # creates all of the db NOTE that if you want to make a change to the db, you need to replace create_all with drop_all so that current dbs are deleted and then change it back so that the changes are made
     app.run(debug = True) #means that we won't have to rerun the server
