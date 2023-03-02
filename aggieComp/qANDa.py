@@ -53,12 +53,13 @@ def showClasses():
             return redirect(url_for("qANDa.pstQst"))
     else:
         return render_template("showClasses.html")
+    return render_template("showClasses.html")
 
 # allows the user to post a comment underneath a specific post and add it to the db for questions
 # the comment isn't added to other post
 # needs to have the post id which is passed through the html form in viewQuestions.html
-@qANDa.route("createComment/<post_id>", methods = ["POST"])
-def createComment(post_id):
+@qANDa.route("createComment/<post_id>/<csClass>", methods = ["POST"])
+def createComment(post_id, csClass):
     text = request.form.get('userResponse') # just another from that holds the users reponse in the web page
     if not text:
         flash("comment can't be empty")
@@ -71,26 +72,94 @@ def createComment(post_id):
             db.session.commit()
         else:
             flash("Post does not exist...")
-    return redirect(url_for("qANDa.viewQ"))
-
-# just lets user view all post <! --- Changes later so that the post are organized by class rather than having them all in one place --- !>
-@qANDa.route("/viewQuestions", methods = ["POST", "GET"])
-def viewQ():
-    return render_template("viewQuestions.html", htmlQuestion = Questions.query.all(), htmlResponses = Comment.query.all(), currentUser = current_user.username)
-
+    if csClass == "General":
+        return redirect(url_for("qANDa.viewQ"))
+    elif csClass == "CS-1":
+        return redirect(url_for("qANDa.viewCS1"))
+    elif csClass == "CS-2":
+        return redirect(url_for("qANDa.viewCS2"))
+    elif csClass == "CS-3":
+        return redirect(url_for("qANDa.viewCS3"))
+    elif csClass == "CS-4":
+        return redirect(url_for("qANDa.viewCS4"))
+    else:
+        return redirect(url_for("qANDa.viewQ"))
 # allows the user that posted a post to delete and when a post is deleted, all comments associated with it are also deleted
-@qANDa.route("/deletePost/<post_id>", methods = ["POST"])
-def deletePost(post_id):
+@qANDa.route("/deletePost/<post_id>/<csClass>", methods = ["POST"])
+def deletePost(post_id, csClass):
     post = Questions.query.filter_by(_id = post_id).delete()
     db.session.commit()
     question = Comment.query.filter_by(post_id = post_id).delete()
     db.session.commit()
-    return redirect(url_for("qANDa.viewQ"))
+    if csClass == "General":
+        return redirect(url_for("qANDa.viewQ"))
+    elif csClass == "CS-1":
+        return redirect(url_for("qANDa.viewCS1"))
+    elif csClass == "CS-2":
+        return redirect(url_for("qANDa.viewCS2"))
+    elif csClass == "CS-3":
+        return redirect(url_for("qANDa.viewCS3"))
+    elif csClass == "CS-4":
+        return redirect(url_for("qANDa.viewCS4"))
+    else:
+        return redirect(url_for("qANDa.viewQ"))
 
 # deletes a single comment in a post if the deleter is also the comment poster
-@qANDa.route("/deleteComment/<post_id>", methods = ["POST"])
-def deleteComment(post_id):
+@qANDa.route("/deleteComment/<post_id>/<csClass>", methods = ["POST"])
+def deleteComment(post_id, csClass):
     post = Comment.query.filter_by(id = post_id).delete()
     db.session.commit()
-    return redirect(url_for("qANDa.viewQ"))
+    if csClass == "General":
+        return redirect(url_for("qANDa.viewQ"))
+    elif csClass == "CS-1":
+        return redirect(url_for("qANDa.viewCS1"))
+    elif csClass == "CS-2":
+        return redirect(url_for("qANDa.viewCS2"))
+    elif csClass == "CS-3":
+        return redirect(url_for("qANDa.viewCS3"))
+    elif csClass == "CS-4":
+        return redirect(url_for("qANDa.viewCS4"))
+    else:
+        return redirect(url_for("qANDa.viewQ"))
+
+# just lets user view all post <! --- Changes later so that the post are organized by class rather than having them all in one place --- !>
+@qANDa.route("/viewQuestions", methods = ["POST", "GET"])
+def viewQ():
+    q = Questions.query.filter_by(csClass = "General")
+    if q.count() == 0:
+            return render_template("emptyClass.html")
+    else:
+        return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = current_user.username)
+
+@qANDa.route("/viewCS-1", methods = ["POST", "GET"])
+def viewCS1():
+    q = Questions.query.filter_by(csClass = "CS-1")
+    if q.count() == 0:
+            return render_template("emptyClass.html")
+    else:
+        return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = current_user.username)
+
+@qANDa.route("/viewCS-2", methods = ["POST", "GET"])
+def viewCS2():
+    q = Questions.query.filter_by(csClass = "CS-2")
+    if q.count() == 0:
+        return render_template("emptyClass.html")
+    else:
+        return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = current_user.username)
+
+@qANDa.route("/viewCS-3", methods = ["POST", "GET"])
+def viewCS3():
+    q = Questions.query.filter_by(csClass = "CS-3")
+    if q.count() == 0:
+            return render_template("emptyClass.html")
+    else:
+        return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = current_user.username)
+
+@qANDa.route("/viewCS-4", methods = ["POST", "GET"])
+def viewCS4():
+    q = Questions.query.filter_by(csClass = "CS-4")
+    if q.count() == 0:
+            return render_template("emptyClass.html")
+    else:
+        return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = current_user.username)
 
