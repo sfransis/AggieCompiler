@@ -60,30 +60,35 @@ def showClasses():
 # needs to have the post id which is passed through the html form in viewQuestions.html
 @qANDa.route("createComment/<post_id>/<csClass>", methods = ["POST"])
 def createComment(post_id, csClass):
-    text = request.form.get('userResponse') # just another from that holds the users reponse in the web page
-    if not text:
-        flash("comment can't be empty")
-    else:
-        post = Questions.query.filter_by(_id = post_id) # find questions that have the needed post id
-        # a post was found with the needed post id
-        if post:
-            response = Comment(content = text, posterUsername = current_user.username, post_id = post_id) # setting var to a row in the db table with the given info
-            db.session.add(response) # adding this question model to the db
-            db.session.commit()
+    if current_user.is_authenticated:
+        text = request.form.get('userResponse') # just another from that holds the users reponse in the web page
+        if not text:
+            flash("comment can't be empty")
         else:
-            flash("Post does not exist...")
-    if csClass == "General":
-        return redirect(url_for("qANDa.viewQ"))
-    elif csClass == "CS-1":
-        return redirect(url_for("qANDa.viewCS1"))
-    elif csClass == "CS-2":
-        return redirect(url_for("qANDa.viewCS2"))
-    elif csClass == "CS-3":
-        return redirect(url_for("qANDa.viewCS3"))
-    elif csClass == "CS-4":
-        return redirect(url_for("qANDa.viewCS4"))
+            post = Questions.query.filter_by(_id = post_id) # find questions that have the needed post id
+            # a post was found with the needed post id
+            if post:
+                response = Comment(content = text, posterUsername = current_user.username, post_id = post_id) # setting var to a row in the db table with the given info
+                db.session.add(response) # adding this question model to the db
+                db.session.commit()
+            else:
+                flash("Post does not exist...")
+        if csClass == "General":
+            return redirect(url_for("qANDa.viewQ"))
+        elif csClass == "CS-1":
+            return redirect(url_for("qANDa.viewCS1"))
+        elif csClass == "CS-2":
+            return redirect(url_for("qANDa.viewCS2"))
+        elif csClass == "CS-3":
+            return redirect(url_for("qANDa.viewCS3"))
+        elif csClass == "CS-4":
+            return redirect(url_for("qANDa.viewCS4"))
+        else:
+            return redirect(url_for("qANDa.viewQ"))
     else:
-        return redirect(url_for("qANDa.viewQ"))
+            flash("You have to be logged in to post a comment...")
+            return redirect(url_for("login"))
+    
 # allows the user that posted a post to delete and when a post is deleted, all comments associated with it are also deleted
 @qANDa.route("/deletePost/<post_id>/<csClass>", methods = ["POST"])
 def deletePost(post_id, csClass):
@@ -126,40 +131,64 @@ def deleteComment(post_id, csClass):
 @qANDa.route("/viewQuestions", methods = ["POST", "GET"])
 def viewQ():
     q = Questions.query.filter_by(csClass = "General")
-    if q.count() == 0:
-            return render_template("emptyClass.html")
+    if current_user.is_authenticated:
+        if q.count() == 0:
+                return render_template("emptyClass.html")
+        else:
+            return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = current_user.username)
     else:
-        return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = current_user.username)
+        if q.count() == 0:
+            return render_template("emptyClass.html")
+        return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = "notSignedIn")
 
 @qANDa.route("/viewCS-1", methods = ["POST", "GET"])
 def viewCS1():
     q = Questions.query.filter_by(csClass = "CS-1")
-    if q.count() == 0:
-            return render_template("emptyClass.html")
+    if current_user.is_authenticated:
+        if q.count() == 0:
+                return render_template("emptyClass.html")
+        else:
+            return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = current_user.username)
     else:
-        return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = current_user.username)
-
+        if q.count() == 0:
+            return render_template("emptyClass.html")
+        return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = "notSignedIn")
+    
 @qANDa.route("/viewCS-2", methods = ["POST", "GET"])
 def viewCS2():
     q = Questions.query.filter_by(csClass = "CS-2")
-    if q.count() == 0:
-        return render_template("emptyClass.html")
+    if current_user.is_authenticated:
+        if q.count() == 0:
+                return render_template("emptyClass.html")
+        else:
+            return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = current_user.username)
     else:
-        return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = current_user.username)
+        if q.count() == 0:
+            return render_template("emptyClass.html")
+        return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = "notSignedIn")
 
 @qANDa.route("/viewCS-3", methods = ["POST", "GET"])
 def viewCS3():
     q = Questions.query.filter_by(csClass = "CS-3")
-    if q.count() == 0:
-            return render_template("emptyClass.html")
+    if current_user.is_authenticated:
+        if q.count() == 0:
+                return render_template("emptyClass.html")
+        else:
+            return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = current_user.username)
     else:
-        return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = current_user.username)
+        if q.count() == 0:
+            return render_template("emptyClass.html")
+        return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = "notSignedIn")
 
 @qANDa.route("/viewCS-4", methods = ["POST", "GET"])
 def viewCS4():
     q = Questions.query.filter_by(csClass = "CS-4")
-    if q.count() == 0:
-            return render_template("emptyClass.html")
+    if current_user.is_authenticated:
+        if q.count() == 0:
+                return render_template("emptyClass.html")
+        else:
+            return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = current_user.username)
     else:
-        return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = current_user.username)
-
+        if q.count() == 0:
+            return render_template("emptyClass.html")
+        return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = "notSignedIn")
