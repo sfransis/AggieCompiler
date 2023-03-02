@@ -7,11 +7,13 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
 
-class questionDB(db.Model, UserMixin):
+class Questions(db.Model, UserMixin):
     _id = db.Column("id", db.Integer, primary_key = True) # each obj in our model is gonna have an "id" which is gonna be an int
     userQuestion = db.Column(db.String(100))
     csClass = db.Column(db.String(100))
     posterName = db.Column(db.String(100))
+
+    comments = db.relationship('Comment', backref = 'questions')
 
     # I think these are the things that we for sure need everytime 
     # as in they are alwasy none empty
@@ -21,6 +23,17 @@ class questionDB(db.Model, UserMixin):
         self.userQuestion = userQuestion 
         self.csClass = csClass
         self.posterName = posterName
+
+class Comment(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key = True)
+    content = db.Column(db.Text)
+    posterUsername = db.Column(db.String(100))
+    post_id = db.Column(db.Integer, db.ForeignKey('questions.id'))
+
+    def __init__(self, content, post_id, posterUsername):
+        self.content = content 
+        self.post_id = post_id
+        self.posterUsername = posterUsername
 
 # creating a db model
 class users(db.Model, UserMixin):
