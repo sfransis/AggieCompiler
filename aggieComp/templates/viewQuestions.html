@@ -5,28 +5,30 @@
 {% block pageContent %}
 
     <!-- Buttons that will redirect students to the specific class category they want -->
-    <form class = "input-group" action = "/viewCS-1" method = "post"> 
-      <input type = "submit" name = "submit-button" value = "CS-1" id = "post box" />
-    </form>
-    <form class = "input-group" action = "/viewCS-2" method = "post"> 
-      <input type = "submit" name = "submit-button" value = "CS-2" id = "post box" />
-    </form>
-    <form class = "input-group" action = "/viewCS-3" method = "post"> 
-      <input type = "submit" name = "submit-button" value = "CS-3" id = "post box" />
-    </form>
-    <form class = "input-group" action = "/viewCS-4" method = "post"> 
-      <input type = "submit" name = "submit-button" value = "CS-4" id = "post box" />
-    </form>
-    <form class = "input-group" action = "/viewQuestions" method = "post"> 
-      <input type = "submit" name = "submit-button" value = "General" id = "post box" />
-    </form>
+    <div class = "btn-container">
+      <form class = "input-group" action = "/viewCS-1" method = "post"> 
+        <input type = "submit" name = "submit-button" value = "CS-1" id = "clss-selection-box" />
+      </form>
+      <form class = "input-group" action = "/viewCS-2" method = "post"> 
+        <input type = "submit" name = "submit-button" value = "CS-2" id = "clss-selection-box" />
+      </form>
+      <form class = "input-group" action = "/viewCS-3" method = "post"> 
+        <input type = "submit" name = "submit-button" value = "CS-3" id = "clss-selection-box" />
+      </form>
+      <form class = "input-group" action = "/viewCS-4" method = "post"> 
+        <input type = "submit" name = "submit-button" value = "CS-4" id = "clss-selection-box" />
+      </form>
+      <form class = "input-group" action = "/viewQuestions" method = "post"> 
+        <input type = "submit" name = "submit-button" value = "General" id = "clss-selection-box" />
+      </form>
+    </div>
 
     <!-- Will be loading in each questions template and each questions comments templates -->
     {% for item in htmlQuestion %}
       <div class="accordion" id="accordionPanelsStayOpenExample">
         <div class="accordion-item">
           <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
               Class: {{item.csClass}}__Posted by: {{item.posterName}}_ID: {{item._id}} <!-- .csCSClass, posterName, and ._id are all attributes in the db model -->
             </button>
           </h2>

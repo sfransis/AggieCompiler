@@ -3,26 +3,29 @@
 {% block title %} Q&A {% endblock %}
 
 {% block pageContent %}
-    <h1> This class has no questions posted. Click "New Question" to be the first poster...</h1>
+    <div class = "btn-container">
+        <!-- Buttons that will redirect students to the specific class category they want -->
+        <form class = "input-group" action = "/viewCS-1" method = "post"> 
+            <input type = "submit" name = "submit-button" value = "CS-1" id = "clss-selection-box" />
+        </form>
+        <form class = "input-group" action = "/viewCS-2" method = "post"> 
+            <input type = "submit" name = "submit-button" value = "CS-2" id = "clss-selection-box" />
+        </form>
+        <form class = "input-group" action = "/viewCS-3" method = "post"> 
+            <input type = "submit" name = "submit-button" value = "CS-3" id = "clss-selection-box" />
+        </form>
+        <form class = "input-group" action = "/viewCS-4" method = "post"> 
+            <input type = "submit" name = "submit-button" value = "CS-4" id = "clss-selection-box" />
+        </form>
+        <form class = "input-group" action = "/viewQuestions" method = "post"> 
+            <input type = "submit" name = "submit-button" value = "General" id = "clss-selection-box" />
+        </form>
+    </div>
 
-    <!-- Buttons that will redirect students to the specific class category they want -->
-    <form class = "input-group" action = "/viewCS-1" method = "post"> 
-        <input type = "submit" name = "submit-button" value = "CS-1" id = "post box" />
-    </form>
-    <form class = "input-group" action = "/viewCS-2" method = "post"> 
-        <input type = "submit" name = "submit-button" value = "CS-2" id = "post box" />
-    </form>
-    <form class = "input-group" action = "/viewCS-3" method = "post"> 
-        <input type = "submit" name = "submit-button" value = "CS-3" id = "post box" />
-    </form>
-    <form class = "input-group" action = "/viewCS-4" method = "post"> 
-        <input type = "submit" name = "submit-button" value = "CS-4" id = "post box" />
-    </form>
-    <form class = "input-group" action = "/viewQuestions" method = "post"> 
-        <input type = "submit" name = "submit-button" value = "General" id = "post box" />
-    </form>
     <form class = "input-group" action = "/showingClassOptions" method = "post"> 
-        <input type = "submit" name = "submit-button" value = "New Question" id = "post box" />
+        <input type = "submit" name = "submit-button" value = "New Question" id = "new-q-box" />
     </form>
+
+    <h2> This class has no questions posted. Click "New Question" to be the first poster...</h2>
     
 {% endblock %}

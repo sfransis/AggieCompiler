@@ -45,7 +45,38 @@ body {
     height: 30px;
 }
 
-#post-box{
-    text-align: center;
+#post-box, #choose-other-box, #post-other-box{
+    position: relative;
+    top: 20px;
+    display: block;
+    justify-content: space-between;
+    flex-direction: row;
     align-items: center;
+    margin: 0 auto;
+    flex: 1;
+}
+
+.btn-container{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+#clss-selection-box{
+    flex: 1;
+}
+
+#new-q-box{
+    display: block;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    margin: 10 auto;
+    flex: 1;
+}
+
+#question-box {
+    width: 6;
+    border-radius: 10px;
 }
