@@ -23,43 +23,56 @@
       </form>
     </div>
 
+    <var id = "counter"></var>
+
     <!-- Will be loading in each questions template and each questions comments templates -->
     {% for item in htmlQuestion %}
-      <div class="accordion" id="accordionPanelsStayOpenExample">
+      <div class="accordion" id="accordionPanel-Questions">
         <div class="accordion-item">
-          <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-              Class: {{item.csClass}}__Posted by: {{item.posterName}}_ID: {{item._id}} <!-- .csCSClass, posterName, and ._id are all attributes in the db model -->
+          <h2 class="accordion-header" id = "accordionPanel-Questions">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-{{item._id}}" aria-expanded="false" aria-controls="panelsStayOpen-{{item._id}}">
+              <!-- Since you can only post if you're logged in you can use the currentUser to find out whether or not the person currently logged in 
+                    is the person that posted the question. If they are the same, they are given the option to delete the post -->
+              {% if item.posterName == currentUser%}
+                <div class = "div-post-delete-form">
+                  <form class = "input-group" action = "/deletePost/{{item._id}}/{{item.csClass}}" method = "post" id = "delete-button-form"> 
+                    <input type = "submit" name = "submit-button" value = "X" id = "delete-post-box" />
+                  </form>
+                </div>
+              {% endif %}
+              <p id = "question-info">Class: {{item.csClass}} </p> 
+
+              <p id = "question-info"> Posted by: {{item.posterName}} </p><!-- .csCSClass, posterName, and ._id are all attributes in the db model -->
             </button>
           </h2>
-          <!-- Since you can only post if you're logged in you can use the currentUser to find out whether or not the person currently logged in 
-                is the person that posted the question. If they are the same, they are given the option to delete the post -->
-          {% if item.posterName == currentUser%}
-            <form class = "input-group" action = "/deletePost/{{item._id}}/{{item.csClass}}" method = "post"> 
-              <input type = "submit" name = "submit-button" value = "Delete Post" id = "post box" />
-            </form>
-          {% endif %}
-          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+          <div id="panelsStayOpen-{{item._id}}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
             <div class="accordion-body">
-                <strong>Question: </strong> {{item.userQuestion}}
+                <p> <strong>Question: </strong> {{item.userQuestion}} </p>
+                <br>
+                <p><strong>Comments: </strong></p>
+                <br>
+                {% for comment in htmlResponses %}
+                  
+                    {% if comment.post_id == item._id %}    
+                      <div class = "comment-box">
+                        {% if comment.posterUsername == currentUser %}
+                          <!-- Kind of like the last if checking if currentUser is the same as the comment poster. If they are they can delete the post and if not
+                                they are not given the option to delete  -->
+                          <form class = "del-comm" action = "/deleteComment/{{comment.id}}/{{item.csClass}}" method = "post"> 
+                            <input type = "submit" name = "submit-button" value = "X" id = "delete-comment-box" />
+                          </form>
+                          {% endif %}
+                          <p>{{comment.content}}</p>
+                          <p> Comment By: {{comment.posterUsername}}</p> 
+                      </div>  
+                      <br>
+                    {% endif %}
+                {% endfor %}
+                <form class = "input-group" action = "/createComment/{{item._id}}/{{item.csClass}}" method = "post"> 
+                        <input type = "text" placeholder = "enter response..." id = "response-box" name = "userResponse" size = 40/> <!-- name is used in the python stuff and id is used in the css stuff -->
+                        <input type = "submit" name = "submit-button" value = "Post Response" id = "create-comment-box" />
+                </form>
             </div>
-            {% for comment in htmlResponses %}
-                {% if comment.post_id == item._id %}
-                  {{comment.content}}_Posted By: {{comment.posterUsername}}
-                {% if comment.posterUsername == currentUser %}
-                  <!-- Kind of like the last if checking if currentUser is the same as the comment poster. If they are they can delete the post and if not
-                        they are not given the option to delete  -->
-                  <form class = "input-group" action = "/deleteComment/{{comment.id}}/{{item.csClass}}" method = "post"> 
-                    <input type = "submit" name = "submit-button" value = "Delete Comment" id = "post box" />
-                  </form>
-                {% endif %}
-                <br/>
-                {% endif %}
-            {% endfor %}
-            <form class = "input-group" action = "/createComment/{{item._id}}/{{item.csClass}}" method = "post"> 
-                    <input type = "text" placeholder = "enter response..." id = "response-box" name = "userResponse" size = 40/> <!-- name is used in the python stuff and id is used in the css stuff -->
-                    <input type = "submit" name = "submit-button" value = "Post Response" id = "post box" />
-            </form>
           </div>
         </div>
       </div>
