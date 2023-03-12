@@ -24,7 +24,33 @@ class Questions(db.Model, UserMixin):
         self.csClass = csClass
         self.posterName = posterName
 
+class reportedQuestions(db.Model, UserMixin):
+    _id = db.Column("id", db.Integer, primary_key = True) # each obj in our model is gonna have an "id" which is gonna be an int
+    userQuestion = db.Column(db.String(100))
+    csClass = db.Column(db.String(100))
+    posterName = db.Column(db.String(100))
+
+    # I think these are the things that we for sure need everytime 
+    # as in they are alwasy none empty
+    # This is needed for some reasons that i don't know since the videos are from different people
+    # so there isn't a way for me to knwo exactly what is going on unless i look at documentation which is probs a good idea
+    def __init__(self, userQuestion, csClass, posterName):
+        self.userQuestion = userQuestion 
+        self.csClass = csClass
+        self.posterName = posterName
+
 class Comment(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key = True)
+    content = db.Column(db.Text)
+    posterUsername = db.Column(db.String(100))
+    post_id = db.Column(db.Integer, db.ForeignKey('questions.id'))
+
+    def __init__(self, content, post_id, posterUsername):
+        self.content = content 
+        self.post_id = post_id
+        self.posterUsername = posterUsername
+
+class reportedComment(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key = True)
     content = db.Column(db.Text)
     posterUsername = db.Column(db.String(100))
@@ -42,7 +68,7 @@ class users(db.Model, UserMixin):
     password = db.Column(db.String(100), nullable = False)
 
 class registerForm(FlaskForm):
-    username = StringField(validators = [InputRequired(), Length(min = 4, max = 20)], render_kw = {"placeholder": "Username"})
+    username = StringField(validators = [InputRequired(), Length(min = 4, max = 20)], render_kw = {"placeholder": "NMSU Email"})
     password = PasswordField(validators = [InputRequired(), Length(min = 4, max = 20)], render_kw = {"placeholder": "Password"}) #using passwordField makesit so that when the user enters their shit it's black dots instead of letters
     submit = SubmitField("Register") # Just the button to register and has the word "Register" on it 
 
@@ -57,3 +83,8 @@ class loginForm(FlaskForm):
     username = StringField(validators = [InputRequired(), Length(min = 4, max = 20)], render_kw = {"placeholder": "Username"})
     password = PasswordField(validators = [InputRequired(), Length(min = 4, max = 20)], render_kw = {"placeholder": "Password"}) #using passwordField makesit so that when the user enters their shit it's black dots instead of letters
     submit = SubmitField("Login") # Just the button to register and has the word "Login" on it 
+
+class deleteAccForm(FlaskForm):
+    username = StringField(validators = [InputRequired(), Length(min = 4, max = 20)], render_kw = {"placeholder": "Username"})
+    password = PasswordField(validators = [InputRequired(), Length(min = 4, max = 20)], render_kw = {"placeholder": "test"}) #using passwordField makesit so that when the user enters their shit it's black dots instead of letters
+    submit = SubmitField("Delete") # Just the button to register and has the word "Login" on it 

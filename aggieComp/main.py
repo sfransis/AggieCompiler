@@ -63,6 +63,11 @@ def login():
             if bcrypt.check_password_hash(user.password, form.password.data): # comparing passwored enterd to password saved in ther users db
                 login_user(user) # some funciton from flask_login that logs in the user...don't know much else about it
                 flash("You have been logged in...") # test template to make sure that login worked <! --- need to change this to an actual page that will be used --- !>
+            else:
+                flash("Incorret Password...try again...")
+        else:
+            flash("There is not account with that name")
+                
     return render_template("login.html", form = form)
     # there are two things that were here. One that flashes "logged in" when you add the  username and shit to the query 
     # the other is checking the sessions to see if the user is already logged in
@@ -79,16 +84,39 @@ def logout():
 def register():
     form = registerForm() # using the form that was created in dbModels which just has the boxes to submit user info
     if form.validate_on_submit(): # v_on_sub check if it is a post request and if it is valid, returns true if active request
-        hashed_password = bcrypt.generate_password_hash(form.password.data) # getting the users entered password and encrypting it
+        setUsernameTup = form.username.data
+        createdUserName = setUsernameTup.partition('@')[0]
+        userExist = users.query.filter_by(username = createdUserName).first()
+        if userExist:
+            flash("that user already exist")
+        else:
+            hashed_password = bcrypt.generate_password_hash(form.password.data) # getting the users entered password and encrypting it
 
-        # creating a new entry in the users db
-        new_user = users(username = form.username.data, password = hashed_password)
-        db.session.add(new_user)
-        db.session.commit()
+            # creating a new entry in the users db
+            new_user = users(username = createdUserName, password = hashed_password)
+            db.session.add(new_user)
+            db.session.commit()
 
-        # will just take the user to login page after they create and account
-        flash("Your account has been created...")
+            # will just take the user to login page after they create and account
+            flash("Your account has been created...")
     return render_template("registerUser.html", form = form)
+
+@app.route("/deleteAccount", methods = ["POST", "GET"])
+def deleteAccount():
+    form = deleteAccForm()
+    if form.validate_on_submit():
+        regUser = users.query.filter_by(username = form.username.data).first() # looking for an entry in the users db that has the same username that was enterd by ther person trying to login
+        if regUser:
+            isSamePass = bcrypt.check_password_hash(regUser.password, form.password.data)
+            if isSamePass:
+                flash("Account has been deleted...")
+                db.session.delete(regUser)
+                db.session.commit()
+            else:
+                flash("Password is incorrect...")
+        else:
+            flash("There is no user with that name...")
+    return render_template("deleteAcc.html", form = form)
 
 if __name__ == "__main__":
     db.create_all() # creates all of the db NOTE that if you want to make a change to the db, you need to replace create_all with drop_all so that current dbs are deleted and then change it back so that the changes are made

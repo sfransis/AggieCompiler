@@ -7,8 +7,11 @@ body {
     margin:0;
     padding:0;
     font-family: sans-serif;
-    background: linear-gradient(#891216, #fff);
-    
+    background: #8c0b42;
+}
+
+h1{
+    color: white;
 }
   
 .login-box {
@@ -46,6 +49,7 @@ body {
     height: 30px;
 }
 
+
 #post-box, #choose-other-box, #post-other-box{
     position: relative;
     top: 20px;
@@ -64,12 +68,17 @@ body {
     align-items: center;
     padding: 0;
     border-radius: 0%;
+    outline-style: solid;
+    outline-width: 1px;
+    outline-color: rgb(153, 144, 144);
 }
+
 .btn-container:hover{
     background: rgb(163, 163, 163);
     border: none;
     padding: 0%;
 }
+
 #clss-selection-box:hover{
     background: rgb(163, 163, 163);
     margin: 0%;
@@ -95,75 +104,9 @@ body {
     border-radius: 10px;
 }
 
-#div-post-delete-form{
-    width: 1000px;
-    height: 20px;
-}
-
-#delete-post-box, #delete-comment-box{
-    background-color:rgba(0, 0, 0, 0);
-    color:red;
-    
-    border-style: solid;
-    border-radius: 15px;
-    border-color: red;
-}
-
-.comment-box #delte-comment-box{
-    position: sticky;
-    bottom: 90%;
-}
-
-.del-comm{
-    height: 20px;
-    width: 20px; 
-    position: relative;
-    right: 22px;
-    bottom: 15px;
-    background-color: white;
-}
-
-#delete-comment-box{
-    position: sticky;
-    top: 100%;
-    left: 5%;
-    height: 15px;
-    width: 15px;
-    font-size: 10px;
-    line-height: 5px;
-    padding: 1px;
-    opacity: 0.44;
-}
-
-#delete-comment-box:hover{
-    opacity: 1;
-}
-
-#delete-button-form{
-    position: relative;
-    bottom: 20px;
-}
-
-#delete-post-box{
-    position: relative;
-    right: 95%;
-    bottom: 90%;
-    height: 20px;
-    width: 20px;
-    font-size: 14px;
-    line-height: 6px;
-    text-align: left;
-    padding: 4px;
-    opacity: 0.44;
-}
-
-#delete-post-box:hover{
-    background-color:rgb(196, 196, 196) ;
-    opacity: 1;
-}
-
-#question-info{
-    width: 150px;
+.question-info{
+    width: 100%;
+    padding-left: 10px;
 }
 
 .comment-box{
@@ -172,29 +115,342 @@ body {
     outline-color: rgb(153, 144, 144);
     padding: 10px;
     padding-top: 0;
-    padding-right: 20px;
+    padding-right: 15px;
 }
 
-.accordion-button{
-    text-align: left;
-    margin: 5;
-}
 
-.accordion-button:hover{
-    background-color: rgb(163, 163, 163);
+.accordion-button.collapsed{
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(153, 144, 144);
+    border-top: none;
 }
 
 .accordion-button:not(.collapsed){
     color: rgb(33, 37, 41);
-    background-color: rgb(163, 163, 163);
+    background-color: white;
+
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(153, 144, 144);
+    border-bottom: none;
+    border-top: none;
+}
+
+.accordion-body{
+    padding-left: 30px;
+    
+
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(153, 144, 144);
+    border-bottom: none;
+    border-top: none;
+}
+
+.dropdown-center{
+    position: relative;
+}
+
+.btn.btn-secondary.dropdown-toggle{
+
+    position: relative;
+    width: 2%;
+    height: 1%;
+    text-align: left;
+    font-size: 20px;
+    color: black;
+    padding-left: .35%;
+    padding-right: 0%;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    border-radius: 0%;
+
+    border: none;
+
+    background-color: white;
+
+    left: 99%;
+}
+
+.btn-group.dropstart{
+    position: relative;
+    width: 1%;
+    height: 1%;
+    
+}
+
+.post-options{
+    width: 250px;
+    height: 24px;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+
+    padding-left: 0;
 }
 
 .accordion, .accordion-item, .accordion-head, .accordion-body{
-    /*
-    position: absolute;
+    
+    /*position: relative;
     left: 50%;
     transform: translate(-50%);
-    width: 75%;
-    */
+    width: 75%;*/
+    
    
 }
+
+#test-cont{
+
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(153, 144, 144);
+
+    border-top: none;
+    border-bottom: none;
+}
+
+.menu{
+    position: relative;
+    top: 20%;
+}
+
+#container {
+    width: 3%;
+    height: 3%;
+    background-color: #fff;
+    padding: 0;
+    margin: 0 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+
+    margin-left: auto;
+    padding-top: 10px;
+  }
+  
+  #container .text {
+    border: none;
+    background: none;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  
+  #container #menu-wrap {
+    position: relative;
+    height: 25px;
+    width: 25px;
+  }
+  
+  #container #menu-wrap .dots {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    top: 0;
+    left: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    z-index: 1;
+  }
+  
+  #container #menu-wrap .dots > div,
+  #container #menu-wrap .dots > div:after,
+  #container #menu-wrap .dots > div:before {
+    height: 6px;
+    width: 6px;
+    background-color: rgb(33, 37, 41);
+    border-radius: 50%;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+  }
+  
+  #container #menu-wrap .dots > div {
+    position: relative;
+  }
+  
+  #container #menu-wrap .dots > div:after {
+    content: "";
+    position: absolute;
+    bottom: calc((25px / 2) - (6px / 2));
+    left: 0;
+  }
+  
+  #container #menu-wrap .dots > div:before {
+    content: "";
+    position: absolute;
+    top: calc((25px / 2) - (6px / 2));
+    left: 0;
+  }
+  
+  #container #menu-wrap .menu {
+    position: absolute;
+    right: 40px;
+    top: 100;
+    width: 0;
+    height: 0;
+    background-color: white;
+    padding: 0;
+    /*-webkit-box-shadow: 2px 4px 6px rgba(49, 49, 49, 0.2);
+    box-shadow: 2px 4px 6px rgba(49, 49, 49, 0.2);*/
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  #container #menu-wrap .menu ul {
+    list-style: none;
+  }
+  
+  #container #menu-wrap .menu ul li {
+    margin: 15px 0;
+  }
+  
+  #container #menu-wrap .menu ul li .link {
+    text-decoration: none;
+    color: rgba(49, 49, 49, 0.85);
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  #container #menu-wrap .toggler {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    z-index: 2;
+  }
+  
+  #container #menu-wrap .toggler:hover + .dots > div,
+  #container #menu-wrap .toggler:hover + .dots > div:after,
+  #container #menu-wrap .toggler:hover + .dots > div:before {
+    background-color: rgb(33, 37, 41);
+  }
+  
+  #container #menu-wrap .toggler:checked + .dots > div {
+    -webkit-transform: translateX(calc(((25px / 2) - (6px / 2)) * -0.7071067812))
+      translateY(calc(((25px / 2) - (6px / 2)) * -0.7071067812));
+    -ms-transform: translateX(calc(((25px / 2) - (6px / 2)) * -0.7071067812))
+      translateY(calc(((25px / 2) - (6px / 2)) * -0.7071067812));
+    transform: translateX(calc(((25px / 2) - (6px / 2)) * -0.7071067812))
+      translateY(calc(((25px / 2) - (6px / 2)) * -0.7071067812));
+  }
+  
+  #container #menu-wrap .toggler:checked + .dots > div:after {
+    -webkit-transform: translateX(calc(((25px / 2) - (6px / 2)) * 0.7071067812))
+      translateY(calc((2 * (25px / 2) - (6px / 2)) * 0.7071067812));
+    -ms-transform: translateX(calc(((25px / 2) - (6px / 2)) * 0.7071067812))
+      translateY(calc((2 * (25px / 2) - (6px / 2)) * 0.7071067812));
+    transform: translateX(calc(((25px / 2) - (6px / 2)) * 0.7071067812))
+      translateY(calc((2 * (25px / 2) - (6px / 2)) * 0.7071067812));
+  }
+  
+  #container #menu-wrap .toggler:checked + .dots > div:before {
+    -webkit-transform: translateX(
+        calc(2 * (((25px / 2) - (6px / 2)) * 0.7071067812))
+      )
+      translateY(
+        calc(((25px / 2) - (6px / 2)) - (((25px / 2) - (6px / 2)) * 0.7071067812))
+      );
+    -ms-transform: translateX(calc(2 * (((25px / 2) - (6px / 2)) * 0.7071067812)))
+      translateY(
+        calc(((25px / 2) - (6px / 2)) - (((25px / 2) - (6px / 2)) * 0.7071067812))
+      );
+    transform: translateX(calc(2 * (((25px / 2) - (6px / 2)) * 0.7071067812)))
+      translateY(
+        calc(((25px / 2) - (6px / 2)) - (((25px / 2) - (6px / 2)) * 0.7071067812))
+      );
+  }
+  
+  #container #menu-wrap .toggler:checked:hover + .dots > div,
+  #container #menu-wrap .toggler:checked:hover + .dots > div:after,
+  #container #menu-wrap .toggler:checked:hover + .dots > div:before {
+    background-color: rgb(33, 37, 41);
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+  }
+  
+  #container #menu-wrap .toggler:checked ~ .menu {
+    opacity: 1;
+    visibility: visible;
+    width: 250px;
+    height: 20px;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+  }
+  
+  #container #menu-wrap .toggler:checked ~ .menu ul .link {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: 0.5s ease 0.3s;
+    -o-transition: 0.5s ease 0.3s;
+    transition: 0.5s ease 0.3s;
+  }
+  
+  #container #menu-wrap .toggler:checked ~ .menu ul .link:hover {
+    color: #2980b9;
+    -webkit-transition: 0.2s;
+    -o-transition: 0.2s;
+    transition: 0.2s;
+  }
+  
+  #container #menu-wrap .toggler:not(:checked) ~ .menu {
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+  }
+  
+  #container #menu-wrap .toggler:not(:checked) ~ .menu ul .link {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: 0.1s;
+    -o-transition: 0.1s;
+    transition: 0.1s;
+  }
+  
+  @media (max-width: 600px) {
+    #container {
+      position: absolute;
+      top: 50px;
+      width: calc(100% - 40px);
+      margin: 0;
+    }
+  }

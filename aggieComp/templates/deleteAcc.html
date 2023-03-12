@@ -1,0 +1,35 @@
+{% extends "baseTemplate.html" %}
+
+{% block title %} Delete Account {% endblock %}
+<body class = "del-acc-page">
+    {% block pageContent %}
+        <link rel = "stylesheet" href = "{{url_for('static', filename = 'style.css')}}">
+
+        {% with messages = get_flashed_messages() %} 
+            {% if messages %}
+                {% for msg in messages %}
+                    <p id = "successMSG"> {{msg}} </p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class = "login-box">
+            <h2> Enter acount info to delete...</h2>
+            <form action = "#" method = "post"> 
+                <div class = "centered-div">
+                    <form action = "#" method = "POST"> 
+                        {{ form.hidden_tag() }}
+                        {{ form.username }}
+                        {{ form.password }}
+                        {{ form.submit }}
+                    </form>
+                </div>
+            </form>
+        </div>
+        
+    {% endblock %}
+</body>
+
+<!-- 400 200 
+
+    320 30-->

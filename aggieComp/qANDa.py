@@ -90,6 +90,7 @@ def createComment(post_id, csClass):
             return redirect(url_for("login"))
     
 # allows the user that posted a post to delete and when a post is deleted, all comments associated with it are also deleted
+# getting sent here is dependent on the html if 
 @qANDa.route("/deletePost/<post_id>/<csClass>", methods = ["POST"])
 def deletePost(post_id, csClass):
     post = Questions.query.filter_by(_id = post_id).delete()
@@ -110,6 +111,7 @@ def deletePost(post_id, csClass):
         return redirect(url_for("qANDa.viewQ"))
 
 # deletes a single comment in a post if the deleter is also the comment poster
+# this is the same as the del post where it is called from html
 @qANDa.route("/deleteComment/<post_id>/<csClass>", methods = ["POST"])
 def deleteComment(post_id, csClass):
     post = Comment.query.filter_by(id = post_id).delete()
@@ -126,6 +128,93 @@ def deleteComment(post_id, csClass):
         return redirect(url_for("qANDa.viewCS4"))
     else:
         return redirect(url_for("qANDa.viewQ"))
+    
+@qANDa.route("/deleteReportedComment/<post_id>", methods = ["POST"])
+def deleteReportedComment(post_id):
+    post = reportedComment.query.filter_by(id = post_id).delete()
+    db.session.commit()
+    return redirect(url_for("qANDa.viewReportedComments"))
+
+@qANDa.route("/deleteReportedPost/<post_id>", methods = ["POST"])
+def deleteReportedPost(post_id):
+    post = reportedQuestions.query.filter_by(_id = post_id).delete()
+    db.session.commit()
+    return redirect(url_for("qANDa.viewReportedQuestions"))
+    
+@qANDa.route("/reportComment/<post_id>/<csClass>", methods = ["POST"])
+def reportComment(post_id, csClass):
+    post = Comment.query.filter_by(id = post_id).first()
+    report = reportedComment(content = post.content, posterUsername = post.posterUsername, post_id = post.post_id)
+    db.session.add(report)
+    db.session.commit()
+    db.session.delete(post)
+    db.session.commit()
+    if csClass == "General":
+        return redirect(url_for("qANDa.viewQ"))
+    elif csClass == "CS-1":
+        return redirect(url_for("qANDa.viewCS1"))
+    elif csClass == "CS-2":
+        return redirect(url_for("qANDa.viewCS2"))
+    elif csClass == "CS-3":
+        return redirect(url_for("qANDa.viewCS3"))
+    elif csClass == "CS-4":
+        return redirect(url_for("qANDa.viewCS4"))
+    else:
+        return redirect(url_for("qANDa.viewQ"))
+
+@qANDa.route("/reportPost/<post_id>/<csClass>", methods = ["POST"])
+def reportPost(post_id, csClass):
+    post = Questions.query.filter_by(_id = post_id).first()
+    report = reportedQuestions(userQuestion = post.userQuestion, posterName = post.posterName, csClass = post.csClass)
+    db.session.add(report)
+    db.session.commit()
+    db.session.delete(post)
+    db.session.commit()
+    if csClass == "General":
+        return redirect(url_for("qANDa.viewQ"))
+    elif csClass == "CS-1":
+        return redirect(url_for("qANDa.viewCS1"))
+    elif csClass == "CS-2":
+        return redirect(url_for("qANDa.viewCS2"))
+    elif csClass == "CS-3":
+        return redirect(url_for("qANDa.viewCS3"))
+    elif csClass == "CS-4":
+        return redirect(url_for("qANDa.viewCS4"))
+    else:
+        return redirect(url_for("qANDa.viewQ"))
+    
+@qANDa.route("/postReportedComment/<post_id>", methods = ["POST", "GET"])
+def pstReportedComm(post_id): 
+    # check if a user is logged in and if they are they can post but if they're not they can't post questions
+    if request.method == "POST":
+        reportedComm = reportedComment.query.filter_by(id = post_id).first()
+        repost = Comment(content = reportedComm.content, posterUsername = reportedComm.posterUsername, post_id = reportedComm.post_id)
+        db.session.add(repost)
+        db.session.commit()
+        db.session.delete(reportedComm)
+        db.session.commit()
+    return redirect(url_for("qANDa.viewReportedComments"))
+
+@qANDa.route("/postReportedPost/<post_id>", methods = ["POST", "GET"])
+def pstReportedPost(post_id): 
+    # check if a user is logged in and if they are they can post but if they're not they can't post questions
+    if request.method == "POST":
+        reportedComm = reportedQuestions.query.filter_by(_id = post_id).first()
+        repost = Questions(userQuestion = reportedComm.userQuestion, csClass = reportedComm.csClass, posterName = reportedComm.posterName)
+        db.session.add(repost)
+        db.session.commit()
+        db.session.delete(reportedComm)
+        db.session.commit()
+    return redirect(url_for("qANDa.viewReportedQuestions"))
+
+@qANDa.route("/viewReportedComments")
+def viewReportedComments():
+    return render_template("viewReportedComments.html", repoComm = reportedComment.query.all())
+
+@qANDa.route("/viewReportedQuestions")
+def viewReportedQuestions():
+    return render_template("viewReportedQst.html", repoQst = reportedQuestions.query.all())
+
 
 # just lets user view all post <! --- Changes later so that the post are organized by class rather than having them all in one place --- !>
 @qANDa.route("/viewQuestions", methods = ["POST", "GET"])
