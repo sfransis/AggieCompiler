@@ -22,6 +22,8 @@ from qANDa import qANDa
 
 from dbModels import * # needed so that db and app can be used in this routes file
 
+import re
+
 login_manager = LoginManager() # allow app and flask login to work together
 login_manager.init_app(app)
 login_manager.login_view = "login"
@@ -84,21 +86,28 @@ def logout():
 def register():
     form = registerForm() # using the form that was created in dbModels which just has the boxes to submit user info
     if form.validate_on_submit(): # v_on_sub check if it is a post request and if it is valid, returns true if active request
-        setUsernameTup = form.username.data
-        createdUserName = setUsernameTup.partition('@')[0]
-        userExist = users.query.filter_by(username = createdUserName).first()
-        if userExist:
-            flash("that user already exist")
+
+        validEmail =  (re.match(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', form.username.data))
+
+        if validEmail:
+            createdUserName = form.username.data.partition('@')[0]
+
+            userExist = users.query.filter_by(username = createdUserName).first()
+            if userExist:
+                flash("that user already exist")
+            else:
+                hashed_password = bcrypt.generate_password_hash(form.password.data) # getting the users entered password and encrypting it
+
+                # creating a new entry in the users db
+                new_user = users(username = createdUserName, password = hashed_password)
+                db.session.add(new_user)
+                db.session.commit()
+
+                # will just take the user to login page after they create and account
+                flash("Your account has been created...")
         else:
-            hashed_password = bcrypt.generate_password_hash(form.password.data) # getting the users entered password and encrypting it
-
-            # creating a new entry in the users db
-            new_user = users(username = createdUserName, password = hashed_password)
-            db.session.add(new_user)
-            db.session.commit()
-
-            # will just take the user to login page after they create and account
-            flash("Your account has been created...")
+            flash("That is not a valid email")
+        
     return render_template("registerUser.html", form = form)
 
 @app.route("/deleteAccount", methods = ["POST", "GET"])
@@ -117,6 +126,15 @@ def deleteAccount():
         else:
             flash("There is no user with that name...")
     return render_template("deleteAcc.html", form = form)
+
+@app.route("/adminPage")
+@login_required
+def adminPage():
+    userName = current_user.username
+    if userName == "Fransisco Sanchez":
+        return render_template("adminPage.html")
+    else: 
+        return "You are not fran san"
 
 if __name__ == "__main__":
     db.create_all() # creates all of the db NOTE that if you want to make a change to the db, you need to replace create_all with drop_all so that current dbs are deleted and then change it back so that the changes are made

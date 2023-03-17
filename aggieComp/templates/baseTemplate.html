@@ -56,6 +56,12 @@
                       <li><a class="dropdown-item" href="/logout"> Logout </a></li>
                       <li><a class="dropdown-item" href="/register"> Create Account </a></li>
                       <li><a class="dropdown-item" href="/deleteAccount"> Delete Account </a></li>
+
+                      <!-- You need to add your username here if you want to become admin
+                            This can be changed later but as of right now, this is how it works -->
+                      {% if current_user.username == "Fransisco Sanchez"%}
+                      <li><a class="dropdown-item" href="/adminPage"> Admin Page </a></li>
+                      {% endif %}
                     </ul>
                   </li>
                 </ul>

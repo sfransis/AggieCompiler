@@ -1,0 +1,22 @@
+{% extends "baseTemplate.html" %}
+
+{% block title %} Admin Page {% endblock %}
+
+{% block pageContent %}
+        <link rel = "stylesheet" href = "{{url_for('static', filename = 'style.css')}}">
+
+        <h1> This is the admin page  </h1>     
+        <p> You can click any of the buttons. Reported Comments takes you to a page that lets you see the reported comments. Reported post is the same for post. And you can see all current user accounts</p>    
+        
+        <form action = "/view" > 
+            <input type = "submit" value = "Users" id = "view-users-box" />
+        </form>
+
+        <form action = "/viewReportedComments"> 
+            <input type = "submit" value = "Reported Comments" id = "view-reported-comms-box" />
+        </form>
+
+        <form action = "/viewReportedQuestions"> 
+            <input type = "submit" value = "Reported Post" id = "view-reported-post-box" />
+        </form>
+{% endblock %}
