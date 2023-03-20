@@ -52,16 +52,20 @@
                     </ul> -->
                     
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="/login"> Login </a></li>
-                      <li><a class="dropdown-item" href="/logout"> Logout </a></li>
-                      <li><a class="dropdown-item" href="/register"> Create Account </a></li>
-                      <li><a class="dropdown-item" href="/deleteAccount"> Delete Account </a></li>
-
+                      <!-- Just checks if there is currently a user logged in and if there is then the 
+                            username is shown in settings just so you know who you're logged as -->
+                      {% if current_user.is_authenticated %}
+                        <li><a class="dropdown-item" href="/deleteAccount"> Current User: {{current_user.username}} </a></li>
+                      {% endif %}
                       <!-- You need to add your username here if you want to become admin
                             This can be changed later but as of right now, this is how it works -->
                       {% if current_user.username == "Fransisco Sanchez"%}
-                      <li><a class="dropdown-item" href="/adminPage"> Admin Page </a></li>
+                        <li><a class="dropdown-item" href="/adminPage"> Admin Page </a></li>
                       {% endif %}
+                      <li><a class="dropdown-item" href="/register"> Create Account </a></li>
+                      <li><a class="dropdown-item" href="/deleteAccount"> Delete Account </a></li>
+                      <li><a class="dropdown-item" href="/login"> Login </a></li>
+                      <li><a class="dropdown-item" href="/logout"> Logout </a></li>
                     </ul>
                   </li>
                 </ul>
