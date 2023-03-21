@@ -10,6 +10,10 @@ body {
     background: #8c0b42;
 }
 
+.p{
+  color:rgb(33, 83, 133);
+}
+
 h1{
     color: white;
 }
@@ -452,4 +456,20 @@ h1{
       width: calc(100% - 40px);
       margin: 0;
     }
+  }
+
+  #home-page-header{
+    background-color: grey;
+  }
+
+  #home-page-first-grid{
+    background-color: rgb(171, 171, 171); 
+  }
+
+  #home-page-second-grid{
+    background-color: rgb(205, 205, 205); 
+  }
+
+  #social-media-icons{
+    color: white;
   }
