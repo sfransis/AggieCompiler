@@ -66,6 +66,8 @@ class users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key = True) # each obj in our model is gonna have an "id" which is gonna be an int
     username = db.Column(db.String(100), unique = True, nullable = False) #the nullable and unique things might not have been added since they were added after the db was already created
     password = db.Column(db.String(100), nullable = False)
+    isAdmin = db.Column(db.String(100))
+    email = db.Column(db.String(100), unique = True, nullable = False)
 
 class registerForm(FlaskForm):
     username = StringField(validators = [InputRequired(), Length(min = 4, max = 20)], render_kw = {"placeholder": "NMSU Email"})

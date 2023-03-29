@@ -85,6 +85,7 @@ def logout():
 @app.route("/register", methods = ["POST", "GET"])
 def register():
     form = registerForm() # using the form that was created in dbModels which just has the boxes to submit user info
+    admin = "False"
     if form.validate_on_submit(): # v_on_sub check if it is a post request and if it is valid, returns true if active request
 
         validEmail =  (re.match(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', form.username.data))
@@ -96,10 +97,12 @@ def register():
             if userExist:
                 flash("that user already exist")
             else:
+                if form.username.data == "sfransis@nmsu.edu":
+                    admin = "True"
                 hashed_password = bcrypt.generate_password_hash(form.password.data) # getting the users entered password and encrypting it
 
                 # creating a new entry in the users db
-                new_user = users(username = createdUserName, password = hashed_password)
+                new_user = users(username = createdUserName, password = hashed_password, isAdmin = admin, email = form.username.data)
                 db.session.add(new_user)
                 db.session.commit()
 
@@ -127,14 +130,26 @@ def deleteAccount():
             flash("There is no user with that name...")
     return render_template("deleteAcc.html", form = form)
 
+@app.route("/adminDeleteAccount/<givenUsername>", methods = ["POST", "GET"])
+def adminDeleteAccount(givenUsername):
+    regUser = users.query.filter_by(username = givenUsername).first()
+    db.session.delete(regUser)
+    db.session.commit()
+    return render_template("view.html", values = users.query.all())
+
+@app.route("/makeUserAdmin/<givenUsername>", methods = ["POST", "GET"])
+def makeUserAdmin(givenUsername):
+    #setattr(user, 'no_of_logins', user.no_of_logins + 1)
+    regUser = users.query.filter_by(username = givenUsername).first()
+    setattr(regUser, 'isAdmin', "True")
+    db.session.commit()
+    return render_template("view.html", values = users.query.all())
+
 @app.route("/adminPage")
 @login_required
 def adminPage():
     userName = current_user.username
-    if userName == "Fransisco Sanchez":
-        return render_template("adminPage.html")
-    else: 
-        return "You are not fran san"
+    return render_template("adminPage.html")
 
 if __name__ == "__main__":
     db.create_all() # creates all of the db NOTE that if you want to make a change to the db, you need to replace create_all with drop_all so that current dbs are deleted and then change it back so that the changes are made
