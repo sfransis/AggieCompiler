@@ -3,41 +3,68 @@
 {% block title %} Delete Account {% endblock %}
 
 {% block pageContent %}
-        <link rel = "stylesheet" href = "{{url_for('static', filename = 'style.css')}}">
+    <link rel = "stylesheet" href = "{{url_for('static', filename = 'style.css')}}">
 
-        <h1> These are the reported comments... </h1>
+    {% if not repoQst %}
+    <h1> There are no reported post... </h1>
+    {% endif %}
+    
+    {% if repoQst %}
+        <div id = "view-reported-comments-page">
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="main-box clearfix">
+                            <div class="table-responsive">
+                                <table class="table user-list">
+                                    <thead>
+                                        <tr>
+                                            <th><span>User</span></th>
+                                            <th><span>Content</span></th>
+                                            <th><span>Options</span></th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for question in repoQst %}
+                                        <tr>
+                                            <td>
+                                                <img src="https://w7.pngwing.com/pngs/636/819/png-transparent-computer-icons-privacy-policy-admin-icon-copyright-rim-share-icon-thumbnail.png" alt="">
+                                                <p class="user-link"> {{question.posterName}} </p>
+                                            </td>
+                                            
+                                            <td>
+                                                <p class = "user-link">{{question.userQuestion}}</p>
+                                            </td>
+        
+                                            <td style="width: 20%;">
+                                                <a href="/adminDeleteReportedPost/{{question._id}}" class="table-link danger">
+                                                    <span class="fa-stack">
+                                                        <i class="fa fa-square fa-stack-2x"></i>
+                                                        <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                                    </span>
+                                                </a>
 
-        {% with messages = get_flashed_messages() %} 
-            {% if messages %}
-                {% for msg in messages %}
-                    <p id = "successMSG"> {{msg}} </p>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+                                                    <a href="/adminRemoveReportOnPost/{{question._id}}" class="table-link">
+                                                        <span class="fa-stack">
+                                                            <i class="fa fa-square fa-stack-2x"></i>
+                                                            <i class="fa fa-check-square fa-stack-1x fa-inverse"></i>
+                                                        </span>
+                                                    </a>
 
-        {% for question in repoQst %}
-            <div class="accordion accordion-flush" id="accordionPanel-Questions">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id = "accordionPanel-Questions">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-{{question._id}}" aria-expanded="false" aria-controls="panelsStayOpen-{{question._id}}">
-                            <div class = "question-info">
-                                <p id = "question-info">Question: {{question.userQuestion}} Posted by: {{question.posterName}} </p><!-- .csCSClass, posterName, and ._id are all attributes in the db model -->
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
                             </div>
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-{{question._id}}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-                        <div class="accordion-body">
-                            <form class = "del-reported-comm" action = "/deleteReportedPost/{{question._id}}" method = "post"> 
-                                <input type = "submit" name = "submit-button" value = "Delete question" id = "delete-reported-question-input" />
-                            </form>
-                            <form class = "repost-reported-comm" action = "postReportedPost/{{question._id}}" method = "post"> 
-                                <input type = "submit" name = "submit-button" value = "Remove Report" id = "repost-reported-question-input" />
-                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        {% endfor %}
+        </div>
+    {% endif %}
                                    
         
 {% endblock %}

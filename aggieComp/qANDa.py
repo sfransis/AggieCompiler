@@ -205,6 +205,38 @@ def pstReportedPost(post_id):
         db.session.commit()
     return redirect(url_for("qANDa.viewReportedQuestions"))
 
+@qANDa.route("/adminRemoveReportComment/<post_id>", methods = ["POST", "GET"])
+def adminRemoveReportComment(post_id): 
+    reportedComm = reportedComment.query.filter_by(id = post_id).first()
+    db.session.delete(reportedComm)
+    db.session.commit()
+    return redirect(url_for("qANDa.viewReportedQuestions"))
+
+@qANDa.route("/adminDeleteReportedComment/<post_id>", methods = ["POST", "GET"])
+def adminDeleteReportedComment(post_id):
+    comment = reportedComment.query.filter_by(id = post_id).first()
+    db.session.delete(comment)
+    delete = Comment.query.filter_by(id = post_id).first()
+    db.session.delete(delete)
+    db.session.commit()
+    return redirect(url_for("qANDa.viewReportedComments"))
+
+@qANDa.route("/adminRemoveReportOnPost/<post_id>", methods = ["POST", "GET"])
+def adminRemoveReportOnPost(post_id): 
+    reportedQst = reportedQuestions.query.filter_by(_id = post_id).first()  
+    db.session.delete(reportedQst)
+    db.session.commit()
+    return redirect(url_for("qANDa.viewReportedQuestions"))
+
+@qANDa.route("/adminDeleteReportedPost/<post_id>", methods = ["POST", "GET"])
+def adminDeleteReportedPost(post_id):
+    post = reportedQuestions.query.filter_by(_id = post_id).first()
+    db.session.delete(post)
+    delete = Questions.query.filter_by(_id = post_id).first()
+    db.session.delete(delete)
+    db.session.commit()
+    return redirect(url_for("qANDa.viewReportedQuestions"))
+
 @qANDa.route("/viewReportedComments")
 def viewReportedComments():
     return render_template("viewReportedComments.html", repoComm = reportedComment.query.all())

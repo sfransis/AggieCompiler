@@ -127,6 +127,7 @@ h1{
     border-width: 1px;
     border-color: rgb(153, 144, 144);
     border-top: none;
+
 }
 
 .accordion-button:not(.collapsed){
@@ -212,6 +213,8 @@ h1{
 
     border-top: none;
     border-bottom: none;
+
+    margin-top: 10px;
 }
 
 .menu{
@@ -697,6 +700,11 @@ color: #a75d54;
 }
 
 #view-user-page{
+  margin-top: 20px;
+  background-color: white;
+}
+
+#view-reported-comments-page{
   margin-top: 20px;
   background-color: white;
 }

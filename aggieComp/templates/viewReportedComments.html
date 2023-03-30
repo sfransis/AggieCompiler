@@ -3,41 +3,70 @@
 {% block title %} Delete Account {% endblock %}
 
 {% block pageContent %}
-        <link rel = "stylesheet" href = "{{url_for('static', filename = 'style.css')}}">
+    <link rel = "stylesheet" href = "{{url_for('static', filename = 'style.css')}}">
 
-        <h1> These are the reported comments... </h1>
+    {% if not repoComm %}
+    <h1> There are no reported comments... </h1>
+    {% endif %}
+    
+    {% if repoComm %}
+        <div id = "view-reported-comments-page">
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="main-box clearfix">
+                            <div class="table-responsive">
+                                <table class="table user-list">
+                                    <thead>
+                                        <tr>
+                                            <th><span>User</span></th>
+                                            <th><span>Content</span></th>
+                                            <th><span>Options</span></th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for comment in repoComm %}
+                                        <tr>
+                                            <td>
+                                                <img src="https://w7.pngwing.com/pngs/636/819/png-transparent-computer-icons-privacy-policy-admin-icon-copyright-rim-share-icon-thumbnail.png" alt="">
+                                                <p class="user-link"> {{comment.posterUsername}} </p>
+                                            </td>
+                                            
+                                            <td>
+                                                <p class = "user-link">{{comment.content}}</p>
+                                            </td>
+        
+                                            <td style="width: 20%;">
+                                                <a href="/adminDeleteReportedComment/{{comment.id}}" class="table-link danger">
+                                                    <span class="fa-stack">
+                                                        <i class="fa fa-square fa-stack-2x"></i>
+                                                        <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                                    </span>
+                                                </a>
 
-        {% with messages = get_flashed_messages() %} 
-            {% if messages %}
-                {% for msg in messages %}
-                    <p id = "successMSG"> {{msg}} </p>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+                                                    <a href="/adminRemoveReportComment/{{comment.id}}" class="table-link">
+                                                        <span class="fa-stack">
+                                                            <i class="fa fa-square fa-stack-2x"></i>
+                                                            <i class="fa fa-check-square fa-stack-1x fa-inverse"></i>
+                                                        </span>
+                                                    </a>
 
-        {% for comment in repoComm %}
-            <div class="accordion accordion-flush" id="accordionPanel-Questions">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id = "accordionPanel-Questions">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-{{comment.id}}" aria-expanded="false" aria-controls="panelsStayOpen-{{comment.id}}">
-                            <div class = "question-info">
-                                <p id = "question-info">Comment: {{comment.content}} Posted by: {{comment.posterUsername}} </p><!-- .csCSClass, posterName, and ._id are all attributes in the db model -->
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
                             </div>
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-{{comment.id}}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-                        <div class="accordion-body">
-                            <form class = "del-reported-comm" action = "/deleteReportedComment/{{comment.id}}" method = "post"> 
-                                <input type = "submit" name = "submit-button" value = "Delete Comment" id = "delete-reported-comment-input" />
-                            </form>
-                            <form class = "repost-reported-comm" action = "postReportedComment/{{comment.id}}" method = "post"> 
-                                <input type = "submit" name = "submit-button" value = "Remove Report" id = "repost-reported-comment-input" />
-                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        {% endfor %}
+        </div>
+    {% endif %}
+
+
                                    
         
 {% endblock %}
