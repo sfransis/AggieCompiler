@@ -132,12 +132,16 @@ def deleteComment(post_id, csClass):
 @qANDa.route("/deleteReportedComment/<post_id>", methods = ["POST"])
 def deleteReportedComment(post_id):
     post = reportedComment.query.filter_by(id = post_id).delete()
+    delete = Comment.query.filter_by(id = post_id).first()
+    db.session.delete(delete)
     db.session.commit()
     return redirect(url_for("qANDa.viewReportedComments"))
 
 @qANDa.route("/deleteReportedPost/<post_id>", methods = ["POST"])
 def deleteReportedPost(post_id):
     post = reportedQuestions.query.filter_by(_id = post_id).delete()
+    delete = Questions.query.filter_by(_id = post_id).first()
+    db.session.delete(delete)
     db.session.commit()
     return redirect(url_for("qANDa.viewReportedQuestions"))
     
@@ -147,8 +151,7 @@ def reportComment(post_id, csClass):
     report = reportedComment(content = post.content, posterUsername = post.posterUsername, post_id = post.post_id)
     db.session.add(report)
     db.session.commit()
-    db.session.delete(post)
-    db.session.commit()
+    
     if csClass == "General":
         return redirect(url_for("qANDa.viewQ"))
     elif csClass == "CS-1":
@@ -168,8 +171,7 @@ def reportPost(post_id, csClass):
     report = reportedQuestions(userQuestion = post.userQuestion, posterName = post.posterName, csClass = post.csClass)
     db.session.add(report)
     db.session.commit()
-    db.session.delete(post)
-    db.session.commit()
+    
     if csClass == "General":
         return redirect(url_for("qANDa.viewQ"))
     elif csClass == "CS-1":
@@ -188,9 +190,7 @@ def pstReportedComm(post_id):
     # check if a user is logged in and if they are they can post but if they're not they can't post questions
     if request.method == "POST":
         reportedComm = reportedComment.query.filter_by(id = post_id).first()
-        repost = Comment(content = reportedComm.content, posterUsername = reportedComm.posterUsername, post_id = reportedComm.post_id)
-        db.session.add(repost)
-        db.session.commit()
+        
         db.session.delete(reportedComm)
         db.session.commit()
     return redirect(url_for("qANDa.viewReportedComments"))
@@ -200,11 +200,41 @@ def pstReportedPost(post_id):
     # check if a user is logged in and if they are they can post but if they're not they can't post questions
     if request.method == "POST":
         reportedComm = reportedQuestions.query.filter_by(_id = post_id).first()
-        repost = Questions(userQuestion = reportedComm.userQuestion, csClass = reportedComm.csClass, posterName = reportedComm.posterName)
-        db.session.add(repost)
-        db.session.commit()
+        
         db.session.delete(reportedComm)
         db.session.commit()
+    return redirect(url_for("qANDa.viewReportedQuestions"))
+
+@qANDa.route("/adminRemoveReportComment/<post_id>", methods = ["POST", "GET"])
+def adminRemoveReportComment(post_id): 
+    reportedComm = reportedComment.query.filter_by(id = post_id).first()
+    db.session.delete(reportedComm)
+    db.session.commit()
+    return redirect(url_for("qANDa.viewReportedQuestions"))
+
+@qANDa.route("/adminDeleteReportedComment/<post_id>", methods = ["POST", "GET"])
+def adminDeleteReportedComment(post_id):
+    comment = reportedComment.query.filter_by(id = post_id).first()
+    db.session.delete(comment)
+    delete = Comment.query.filter_by(id = post_id).first()
+    db.session.delete(delete)
+    db.session.commit()
+    return redirect(url_for("qANDa.viewReportedComments"))
+
+@qANDa.route("/adminRemoveReportOnPost/<post_id>", methods = ["POST", "GET"])
+def adminRemoveReportOnPost(post_id): 
+    reportedQst = reportedQuestions.query.filter_by(_id = post_id).first()  
+    db.session.delete(reportedQst)
+    db.session.commit()
+    return redirect(url_for("qANDa.viewReportedQuestions"))
+
+@qANDa.route("/adminDeleteReportedPost/<post_id>", methods = ["POST", "GET"])
+def adminDeleteReportedPost(post_id):
+    post = reportedQuestions.query.filter_by(_id = post_id).first()
+    db.session.delete(post)
+    delete = Questions.query.filter_by(_id = post_id).first()
+    db.session.delete(delete)
+    db.session.commit()
     return redirect(url_for("qANDa.viewReportedQuestions"))
 
 @qANDa.route("/viewReportedComments")

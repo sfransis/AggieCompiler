@@ -39,6 +39,22 @@
                       <li><a class="dropdown-item" href="/viewQuestions"> View Other Post </a></li>
                     </ul>
                   </li>
+
+                  <!-- Checks if the user is an admin which you can decide as of right now 
+                            by putting your nmsu email in the register route in the main.py -->
+                  {% if current_user.isAdmin == "True" %}
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Admin
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/view"> Users </a></li>
+                        <li><a class="dropdown-item" href="/viewReportedComments"> Reported Comments </a></li>
+                        <li><a class="dropdown-item" href="/viewReportedQuestions"> Reported Post </a></li>
+                      </ul>
+                    </li>
+                  {% endif %}
+
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Settings
@@ -57,11 +73,7 @@
                       {% if current_user.is_authenticated %}
                         <li><a class="dropdown-item" href="/deleteAccount"> Current User: {{current_user.username}} </a></li>
                       {% endif %}
-                      <!-- You need to add your username here if you want to become admin
-                            This can be changed later but as of right now, this is how it works -->
-                      {% if current_user.username == "Fransisco Sanchez"%}
-                        <li><a class="dropdown-item" href="/adminPage"> Admin Page </a></li>
-                      {% endif %}
+
                       <li><a class="dropdown-item" href="/register"> Create Account </a></li>
                       <li><a class="dropdown-item" href="/deleteAccount"> Delete Account </a></li>
                       <li><a class="dropdown-item" href="/login"> Login </a></li>
