@@ -4,5 +4,41 @@
 
 {% block pageContent %}
 
-    <h1> This is the compiler page </h1>>
+<!DOCTYPE html>
+	<html>
+		<head>
+			<title> Aggie Compiler</title>
+			<link rel="stylesheet" type = "text/css" href = "../static/codeMirror.css">
+        	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.js"></script>
+        	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/python/python.js"></script>
+		</head>
+	<body>
+		<textarea id="code"></textarea>
+        <button id="connect">Connect</button>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+        <script>
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+            var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+                mode: 'python',
+                lineNumbers: true,
+                autofocus: true,
+                theme: 'monokai'
+            });
+            var connectButton = document.getElementById('connect');
+            connectButton.onclick = function() {
+                socket.emit('connect');
+                connectButton.disabled = true;
+            };
+            socket.on('connect', function() {
+                editor.on('change', function() {
+                    socket.emit('code', editor.getValue());
+                });
+                socket.on('code', function(data) {
+                    editor.setValue(data);
+                });
+            });
+        </script>
+	</body>
+</html>
+	
 {% endblock %}

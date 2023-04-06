@@ -17,12 +17,36 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
 
 from compiler import compiler
+from compiler import * 
 from roadmap import roadmap
 from qANDa import qANDa
+
+from flask_socketio import SocketIO, emit
+
+@socketio.on('connect')
+def handle_connect():
+    emit('connect')
+    
+@socketio.on('code')
+def handle_code(code):
+    emit('code', code, broadcast=True)
+
+
+from PyQt6.QtWidgets import QApplication
+
+from PyQt6 import * 
+from PyQt6.QtWidgets import * 
+from PyQt6.QtCore import * 
+from PyQt6.QtGui import * 
+from PyQt6.Qsci import * 
+from PyQt6 import QtCore, QtGui, QtWidgets, QtWebEngineWidgets
+
+
 
 from dbModels import * # needed so that db and app can be used in this routes file
 
 import re
+import sys 
 
 login_manager = LoginManager() # allow app and flask login to work together
 login_manager.init_app(app)
@@ -151,7 +175,9 @@ def adminPage():
     userName = current_user.username
     return render_template("adminPage.html")
 
-if __name__ == "__main__":
-    db.create_all() # creates all of the db NOTE that if you want to make a change to the db, you need to replace create_all with drop_all so that current dbs are deleted and then change it back so that the changes are made
-    #db.session.query(Comment).delete()
-    app.run(debug = True) #means that we won't have to rerun the server
+# if __name__ == "__main__":
+#     db.create_all() # creates all of the db NOTE that if you want to make a change to the db, you need to replace create_all with drop_all so that current dbs are deleted and then change it back so that the changes are made
+#     #db.session.query(Comment).delete()
+#     app.run(debug = True) #means that we won't have to rerun the server
+    
+#     #socketio.run(beta)
