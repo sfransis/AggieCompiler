@@ -8,17 +8,26 @@ body {
     margin:0;
     padding:0;
     font-family: sans-serif;
-    background: #8c0b42;
+    background: #00337C;
     height: 100%;
     
 }
+#navbarNavDropdown {
+	background-color: red;
+	color: red;
+}
+
+#navbarone{
+	background-color: #205295;
+}
+
 
 .p{
   color:rgb(33, 83, 133);
 }
 
 h1{
-    color: white;
+    color: #00337C;
 }
   
 /* This shit is for the creations of the "asking question" box with their selections and stuff */
@@ -216,6 +225,7 @@ h1{
 .navbar {
   margin: 11.25px;
   margin-top: 0;
+
 }
 
 #test-cont{
@@ -723,6 +733,7 @@ color: #a75d54;
 
 .container-fluid{
   height: 90%;
+
 }
 
 .col-xl-10{
