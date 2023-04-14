@@ -108,7 +108,7 @@
                 {% endfor %}
                 <form class = "input-group" action = "/createComment/{{item._id}}/{{item.csClass}}" method = "post"> 
                         <input type = "text" placeholder = "enter response..." id = "response-box" name = "userResponse" size = 40/> <!-- name is used in the python stuff and id is used in the css stuff -->
-                        <input type = "submit" name = "submit-button" value = "Post Response" id = "create-comment-box" />
+                        <input type = "submit" name = "submit-button" value = "Post Response" id = "create-comment-box" onkeydown = "return event.key != 'Enter';" />
                 </form>
             </div>
           </div>
