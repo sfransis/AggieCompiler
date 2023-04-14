@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block pageContent %} 
-    <div class = "row d-flex justify-content-center align-items-center">
+    <div class = "row d-flex justify-content-center align-items-center" id = "login-container">
         <div class="col-xl-10">
             <div class="card rounded-3 text-black">
-                <div class="row g-0">
+                <div class="row g-0" id = "second-row">
                     <div class="col-lg-6">
-                        <div class="card-body p-md-5 mx-md-4">
+                        <div class="card-body">
 
                             {% with messages = get_flashed_messages() %} 
                                 {% if messages %}
@@ -55,11 +55,19 @@
                         <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
                             <div class="text-white px-3 py-4 p-md-5 mx-md-4">
                                 <h4 class="mb-4">How to login...</h4>
-                                <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            </div>
+                                <p class="small mb-0"> 
+                                    When registering an account an email was used. 
+                                    We have used the beginning of that email to create an account with an associated user name. 
+                                    For example, an account using the email “johnsmith@nmsu.edu” would have the username “johnsmith” associated with the account. 
+                                </p>
+
+                                <br>
+
+                                <p class="small mb-0"> 
+                                    With this information, use the beginning of the email you used to register as your username in the login info. The password is the same as the one used when registering an account.
+                                </p>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>

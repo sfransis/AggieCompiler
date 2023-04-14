@@ -70,7 +70,7 @@ class users(db.Model, UserMixin):
     email = db.Column(db.String(100), unique = True, nullable = False)
 
 class registerForm(FlaskForm):
-    username = StringField(validators = [InputRequired(), Length(min = 4, max = 20)], render_kw = {"placeholder": "NMSU Email"})
+    username = StringField(validators = [InputRequired(), Length(min = 4, max = 20)], render_kw = {"placeholder": "Email"})
     password = PasswordField(validators = [InputRequired(), Length(min = 4, max = 20)], render_kw = {"placeholder": "Password"}) #using passwordField makesit so that when the user enters their shit it's black dots instead of letters
     submit = SubmitField("Register") # Just the button to register and has the word "Register" on it 
 
