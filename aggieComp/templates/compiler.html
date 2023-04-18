@@ -36,7 +36,7 @@
 		<div class = "row m-3">
 			<div class = "col">
 				<div class = "d-flex justify-content-between mb-2 bg-dark rounded p-2">
-					<div class="col-12 w-25">
+					<div class="col-auto"> <!-- div class ="col-12 w-25"-->
 						<label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
 						<select class="form-select" id="inlineFormSelectPref">
 						  <option selected>Choose...</option>
@@ -46,7 +46,17 @@
 						  <option value="Python">Python</option>
 						</select>
 					  </div>
+					  <div class="col-auto">
+						<label class="visually-hidden" for="autoSizingSelect"> Preference </label>
+						<select class = "form-select" id = "autoSizingSelect">
+							<option Selected> Choose... </option>
+							<option value = "1"> 3024-day</option>
+							<option value = "2"> 3024-night</option>
+							<option value = "3"> abbot </option>
+
+						</select>
 					  <div>
+						<div class="d-grid gap-2 d-md-flex justify-content-md-end"> <!-- div class="col- auto"> -->
 						<button type="button" class="btn btn-success">Coding Sprint</button>
 						<button type="button" class="btn btn-success"><i class="bi bi-play-fill"></i></button>
 					  </div>
@@ -92,6 +102,8 @@
 					editor.setOption("mode", "text/x-c++src")
 				}
 			})
+
+			var option = document.getElement
 		</script>
 		
 	
