@@ -1,0 +1,8 @@
+
+<?php
+
+// initially 
+$comment = null;
+
+?>
+
