@@ -12,22 +12,22 @@ from wtforms.fields import SubmitField
 from pathlib import Path
 
 
-class MyForm(FlaskForm):
-    source_code = CodeMirrorField(language = "python", 
-                                config = {'lineNumbers' : 'true', 'tabsize' : 3})
-    submit = SubmitField('Submit')
+# class MyForm(FlaskForm):
+#     source_code = CodeMirrorField(language = "python", 
+#                                 config = {'lineNumbers' : 'true', 'tabsize' : 3})
+#     submit = SubmitField('Submit')
 
 
 
 
 compiler = Blueprint("compiler", __name__, static_folder = "static", template_folder = "template")
 # this will create the route of the url
-@compiler.route("/compiler", methods = ["GET", "POST"])
+@compiler.route("/compiler", methods = ['GET', 'POST'])
 def compilerPage():
     if request.method == 'POST':
-        editor = request.form['editor']
-    return render_template('compiler.html', editor = editor)
-    
+        data = request.form['data']
+        return render_template('compiler.html', data = data)
+    return render_template('compiler.html')
     # editor = MyForm()
     # if editor.validate_on_submit():
     #     text = editor.source_code.data

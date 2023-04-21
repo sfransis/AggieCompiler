@@ -17,7 +17,7 @@ SECRET_KEY = 'secret!'
 CODEMIRROR_LANGUAGES = ['python', 'html', 'java', 'c++','c']
 WTF_CSRF_ENABLED = True
 
-CODEMIRROR_THEME = '3024-day'
+CODEMIRROR_THEME = 'monokai'
 CODEMIRROR_ADDONS = ( 
             ('display', 'placeholder'),
 )
