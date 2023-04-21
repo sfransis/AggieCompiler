@@ -14,7 +14,9 @@ from wtforms.fields import SubmitField
 
 
 SECRET_KEY = 'secret!'
-CODEMIRROR_LANGUAGES = ['python', 'html']
+CODEMIRROR_LANGUAGES = ['python', 'html', 'java', 'c++','c']
+WTF_CSRF_ENABLED = True
+
 CODEMIRROR_THEME = '3024-day'
 CODEMIRROR_ADDONS = ( 
             ('display', 'placeholder'),

@@ -14,7 +14,7 @@ from pathlib import Path
 
 class MyForm(FlaskForm):
     source_code = CodeMirrorField(language = "python", 
-                                config = {'lineNumbers' : 'true'})
+                                config = {'lineNumbers' : 'true', 'tabsize' : 3})
     submit = SubmitField('Submit')
 
 
@@ -24,7 +24,11 @@ compiler = Blueprint("compiler", __name__, static_folder = "static", template_fo
 # this will create the route of the url
 @compiler.route("/compiler", methods = ["GET", "POST"])
 def compilerPage():
-    form = MyForm()
-    if form.validate_on_submit():
-        text = form.source_code.data
-    return render_template("compiler.html", form = form)
+    if request.method == 'POST':
+        editor = request.form['editor']
+    return render_template('compiler.html', editor = editor)
+    
+    # editor = MyForm()
+    # if editor.validate_on_submit():
+    #     text = editor.source_code.data
+    # return render_template("compiler.html", form = editor)

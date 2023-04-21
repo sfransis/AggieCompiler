@@ -8,7 +8,7 @@
 <html>
 	<head>
 		{{ codemirror.include_codemirror() }}
-		<title>Aggie Compiler</title>
+		<title>Aggie Compiler - Editor</title>
 
 		<!-- Bootstrap-->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" >
@@ -60,33 +60,90 @@
 						  <option value="C++">C++</option>
 						  <option value="Python">Python</option>
 						</select>
-					  </div>
-					  <div class="col-auto">
+					</div>
+					<div class="col-12 w-25 mb-2"> <!-- div class = "col-auto" -->
 						<label class="visually-hidden" for="autoSizingSelect"> Preference </label>
 						<select class = "form-select" id = "autoSizingSelect">
 							<option Selected> Choose... </option>
 							<option value = "1"> 3024-day</option>
 							<option value = "2"> 3024-night</option>
 							<option value = "3"> abbot </option>
-
 						</select>
-					  <div>
-						<!-- Button to rub the compiler -->
-						<div class="d-grid gap-2 d-md-flex justify-content-md-end"> <!-- div class="col- auto"> -->
-						<button type="button" class="btn btn-success">Debug Button</button>
-						<button type="button"  class="btn btn-info"><i class="bi bi-play-fill"></i></button>
-					  </div>
-				</div>
+					</div>
+						<div>
+							<!-- Button to rub the compiler -->
+							<div class="d-grid gap-2 d-md-flex justify-content-md-end"> <!-- div class="col- auto"> -->
+							<button type="button" class="btn btn-success">Debug Button</button>
+							<button type="button"  class="btn btn-info"><i class="bi bi-play-fill"></i></button>
+						</div>
 
-				<form method = "POST">
-					{{ form.source_code }}
-				</form>
+						
 
-				<!-- This is the compiler textarea-->
-				<textarea type = "text" class = "form-control" id = "editor"> </textarea>
+
+					</div>
+
+				
+
+
+
+
+			</div>		
+
+
 			
-			</div>
 
+
+
+		</div>
+
+		<form method = "POST" action = "/compiler">
+			<textarea name = "editor" id = "editorPlaceholder"> </textarea>
+			<button type = "submit"> Run</button>
+		</form>
+
+		<hr />
+
+		<div> 
+			{{ raw_data }}
+		</div>
+
+		<script type="text/javascript"> 
+			var editor = CodeMirror.fromTextArea(
+				document.getElementById('editorPlaceholder'),
+				{
+					mode: 'text/x-c++src',
+					theme: "dracula",
+					lineNumbers: true,
+					autoCloseTags: true,
+					autoCloseBrackets: true,
+					tabSize: 4
+				});
+
+		</script>
+
+		
+
+
+	</body>	
+</html>
+			
+{% endblock %}
+
+				<!--
+				<form method = "POST">
+					{{ form.csrf_token }}
+					{{ form.source_code }}
+
+					<textarea type = "text" name = "editor" class = "form-control" id = "editor"> </textarea>
+					<button type = "submit"> Run </button>
+				</form>
+			-->
+
+				<!-- This is the compiler textarea
+				<textarea type = "text" class = "form-control" id = "editor"> </textarea>
+				-->
+
+			<!--
 			<div class = "col d-flex flex-column rounded bg-dark px-4">
 				<div class = "h-50">
 					<label for = "Input" class = "text-light mt-4 mb-2"> Input </label>
@@ -97,13 +154,15 @@
 					<textarea type = "text" class = "form-control h-75" aria-label = "last name"> </textarea>
 				</div>
 			</div>
+		-->
+
 			
 	
-		</body>	
 
+		<!---
 		<script>
 			var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
-				mode: "text/x-c++src", <!-- "text/x-java" "text/x-csrc" "text/x-python"-->
+				mode: "text/x-c++src", <!-- "text/x-java" "text/x-csrc" "text/x-python"
 				theme: "dracula",
 				lineNumbers: true,
 				autoCloseTags: true,
@@ -132,9 +191,9 @@
 			})
 
 			
-		</script>
+		</script>  - ->
 		
 		</html>
-	{% endblock %}
+
 
 
