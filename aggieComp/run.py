@@ -8,6 +8,9 @@ from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 
 from flask_codemirror import CodeMirror
+from flask_wtf import FlaskForm
+from flask_codemirror.fields import CodeMirrorField
+from wtforms.fields import SubmitField
 
 
 SECRET_KEY = 'secret!'

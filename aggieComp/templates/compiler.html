@@ -47,10 +47,7 @@
 	</head>
 
 	<body>
-		<form method = "POST">
-			{{ form.source_code }}
-		</form>
-		
+
 		<div class = "row m-3">
 			<div class = "col">
 				<div class = "d-flex justify-content-between mb-2 bg-dark rounded p-2">
@@ -81,8 +78,12 @@
 					  </div>
 				</div>
 
+				<form method = "POST">
+					{{ form.source_code }}
+				</form>
+
 				<!-- This is the compiler textarea-->
-				<textarea type = "text" class = "form-control" id = "editor" action = "<?php echo $_SERVER['PHP_SELF']; ?>"> </textarea>
+				<textarea type = "text" class = "form-control" id = "editor"> </textarea>
 			
 			</div>
 
