@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		{{ codemirror.include_codemirror() }}
 		<title>Aggie Compiler</title>
 
 		<!-- Bootstrap-->
@@ -46,6 +47,10 @@
 	</head>
 
 	<body>
+		<form method = "POST">
+			{{ form.source_code }}
+		</form>
+		
 		<div class = "row m-3">
 			<div class = "col">
 				<div class = "d-flex justify-content-between mb-2 bg-dark rounded p-2">

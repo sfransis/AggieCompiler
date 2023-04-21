@@ -21,15 +21,7 @@ from compiler import *
 from roadmap import roadmap
 from qANDa import qANDa
 
-from flask_socketio import SocketIO, emit
 
-@socketio.on('connect')
-def handle_connect():
-    emit('connect')
-    
-@socketio.on('code')
-def handle_code(code):
-    emit('code', code, broadcast=True)
 
 
 from dbModels import * # needed so that db and app can be used in this routes file
@@ -168,5 +160,3 @@ if __name__ == "__main__":
     db.create_all() # creates all of the db NOTE that if you want to make a change to the db, you need to replace create_all with drop_all so that current dbs are deleted and then change it back so that the changes are made
     #db.session.query(Comment).delete()
     app.run(debug = True) #means that we won't have to rerun the server
-    
-    #socketio.run(beta)
