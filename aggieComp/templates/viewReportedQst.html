@@ -1,6 +1,6 @@
 {% extends "baseTemplate.html" %}
 
-{% block title %} Delete Account {% endblock %}
+{% block title %} Reported Questions {% endblock %}
 
 {% block pageContent %}
     <link rel = "stylesheet" href = "{{url_for('static', filename = 'style.css')}}">
@@ -34,7 +34,7 @@
                                                 <p class="user-link"> {{question.posterName}} </p>
                                             </td>
                                             
-                                            <td>
+                                            <td id = "content-cell">
                                                 <p class = "user-link">{{question.userQuestion}}</p>
                                             </td>
         

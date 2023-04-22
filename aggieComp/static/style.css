@@ -1,9 +1,9 @@
 html {
     height: 100%;
     overflow-y: scroll;
-
 }
 
+/* setting some values that will be used in all pages such as the background color of the web page. */
 body {
     margin:0;
     padding:0;
@@ -12,18 +12,9 @@ body {
     height: 100%;
     
 }
-#navbarNavDropdown {
-	background-color: white;
-	color: #00337C;
-}
-
-#navbarone{
-	background-color: #205295;
-}
-
 
 .p{
-  color:rgb(33, 83, 133);
+  color:red;
 }
 
 h1{
@@ -246,7 +237,7 @@ h1{
 }
 
 #container {
-    width: 3%;
+    width: 2%;
     height: 3%;
     background-color: #fff;
     padding: 0;
@@ -260,7 +251,7 @@ h1{
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-
+    margin-right: 0;
     margin-left: auto;
     padding-top: 10px;
   }
@@ -504,10 +495,10 @@ h1{
   background: #fccb90;
   
   /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(to right, #8c0b42, grey);
+  background: -webkit-linear-gradient(to right, #00337C, grey);
   
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to right, #8c0b42, grey);
+  background: linear-gradient(to right, #00337C, grey);
 }
   
 @media (min-width: 768px) {
@@ -537,7 +528,7 @@ h1{
 }
 
 .container{
-  margin: 0;
+  width: 100%;
 }
 
 #login-boxes{
@@ -723,17 +714,20 @@ color: #a75d54;
 
 #view-user-page{
   margin-top: 20px;
+  margin-left: 7%;
+  margin-right: 7%;
   background-color: white;
 }
 
 #view-reported-comments-page{
   margin-top: 20px;
+  margin-left: 7%;
+  margin-right: 7%;
   background-color: white;
 }
 
 .container-fluid{
   height: 90%;
-
 }
 
 .col-xl-10{
@@ -741,8 +735,18 @@ color: #a75d54;
   height: 100%;
 }
 
+#del-acc-col{
+  width: 40%;
+  height: 90%
+}
+
+/* This is the way to contorl the size of the pages that come up when logging in and out and creating an account. 
+   The size needs to be set to 100% otherwise when a message is flashed, the page gets messed up with sizing 
+   
+   TODO: Find out a way to make a pop out showing saying the information rather than actually flashing it. The size of the page itself is a bit big
+   and would look better smaller but the problem above happens when the page is smaller */
 #login-container, #register-container{
-  height: 95%;
+  height: 100%;
 }
 
 .card, .card-body, #second-row{
@@ -752,4 +756,16 @@ color: #a75d54;
 #username-info{
   position:sticky;
   left: 95%;
+}
+
+.col-lg-6 {
+  height: 100%;
+}
+
+/* There are some td tags in the "view reported __" html files
+   which hold the content of reported post and comments. Setting this width here makes it so that
+   the size of a screen those not shift the cell  sizes and make things look weird. */ 
+
+#content-cell{
+  width: 60%;
 }
