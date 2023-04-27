@@ -769,3 +769,54 @@ color: #a75d54;
 #content-cell{
   width: 60%;
 }
+
+/* The text area that is used for posting questions can be changed using this stuff */
+
+#userQuestion-Box{
+ height: 100%;
+ width: 100%;
+}
+
+.post-question-container{
+  position: sticky;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 60%;
+  padding: 40px;
+  padding-bottom: 0;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+  border-color:#141;
+}
+
+#post-q-form{
+  height: 40%;
+}
+
+.post-question-container h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+#input-box{
+  
+  height: 100%;
+}
+
+#question-options{
+  position: relative;
+}
+
+#successMSG-question{
+  position: relative;
+  top: 0;
+  color: #fff;
+  text-align: center;
+}
+

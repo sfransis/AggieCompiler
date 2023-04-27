@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session, request, flash, redirect, url_for
+from flask import Flask, Blueprint, render_template, session, request, flash, redirect, url_for
 from flask_login import current_user
 from flask_sqlalchemy import SQLAlchemy
 from dbModels import *
@@ -19,8 +19,8 @@ def pstQst():
                 return redirect(url_for("qANDa.showClasses"))
             elif request.form['submit-button'] == "Post":
                 session.permanent = True
-                questionPost = request.form["userQuestion"] # gets the info from the question box
-                csClass = session["questionClass"] # sets this info based on the users selected class
+                questionPost = request.form['userQuestion'] # gets the info from the question box
+                csClass = session['questionClass'] # sets this info based on the users selected class
                 question = Questions(questionPost, csClass, current_user.username) # creating a new entry in the db model or "table"
                 db.session.add(question) # adding this question model to the db
                 db.session.commit()
