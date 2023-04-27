@@ -13,16 +13,16 @@
                     {% endfor %}
                 {% endif %}
             {% endwith %}
-            <h2> What is your question?...</h2>
+            <h2 id = "post-q-header" style="font-size:2.5vw;"> What is your question?...</h2>
             <form action = "{{ url_for('qANDa.pstQst') }}" method = "post" id = "post-q-form"> 
                 <div id = "input-box">
                     <!--<input type = "text" placeholder = "enter question..." id = "question-box" name = "userQuestion" size = 40/>  name is used in the python stuff and id is used in the css stuff -->
                     <textarea name="userQuestion" id = "userQuestion-Box"></textarea>
                 </div>
                 <div id = "question-options">
-                    <input type = "submit" name = "submit-button" value = "Post" id = "post-box" />
-                    <input type = "submit" name = "submit-button" value = "Change Class" id = "choose-other-box" />
-                    <input type = "submit" name = "submit-button" value = "Post Other Question" id = "post-other-box" />
+                    <input type = "submit" name = "submit-button" value = "Post" id = "post-box" style="font-size:1.2vw;"/>
+                    <input type = "submit" name = "submit-button" value = "Change Class" id = "choose-other-box" style="font-size:1.2vw;"/>
+                    <input type = "submit" name = "submit-button" value = "Post Other Question" id = "post-other-box" style="font-size:1.2vw;"/>
                 </div>
             </form>
         </div>

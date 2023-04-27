@@ -61,12 +61,25 @@ h1{
 #post-box, #choose-other-box, #post-other-box{
     position: relative;
     top: 20px;
+    height: 20%;
     display: block;
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
     margin: 0 auto;
     flex: 1;
+}
+
+#post-box{
+  width: 10%;
+}
+
+#choose-other-box{
+  width: 20%;
+}
+
+#post-other-box{
+  width: 30%;
 }
 
 .btn-container{
@@ -811,6 +824,7 @@ color: #a75d54;
 
 #question-options{
   position: relative;
+  height: 100%;
 }
 
 #successMSG-question{
@@ -818,5 +832,11 @@ color: #a75d54;
   top: 0;
   color: #fff;
   text-align: center;
+}
+
+#post-q-header{
+  height: 10%;
+  width: 5;
+  margin-bottom: 5%;
 }
 
