@@ -15,8 +15,8 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" ></script>
 
 		<!-- Compiler main files-->
-		<script src = "static/compiler.js"> </script>
-		<link href = "static/compiler.css"rel="stylesheet"/>
+		<script src = "codemirror5-master/src/compiler.js"> </script>
+		<link href = "codemirror5-master/lib/compiler.css"rel="stylesheet"/>
 
 		<!-- Javascript -->
 		<script type = "text/javascript" src = "/static/js/j-query.min.js"> </script>
@@ -31,7 +31,7 @@
 		<script src = "addon/show-hint.js"> </script>
 		<script rel = "stylesheet" href = "addon/show-hint.css"></script>
 
-		<script src = "static/addon/closetag.js"> </script>
+		<script src = "codemirror5-master//addon/closetag.js"> </script>
 		<script src = "static/addon/closeBracket.js"> </script>
 		<link href = "static/theme/dracula.css"rel="stylesheet"/>
 		<link href = "static/theme/monokai.css"rel="stylesheet"/>
@@ -48,111 +48,107 @@
 	</head>
 
 	<body>
-		
-
-		<div class = "row m-3">
-			<div class = "col">
-				<div class = "d-flex justify-content-between mb-2 bg-dark rounded p-2">
-					<div class="col-auto"> <!-- div class ="col-12 w-25"-->
-						<label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
+		<div class = "container bg-light rounded">
+			<div class = "row m-3">
+				<div class = "col-auto">
+						 <!-- div class ="col-12 w-25"-->
+					<label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
 						<select class="form-select" id="inlineFormSelectPref">
-						  <option selected>Choose...</option>
-						  <option value="Java">Java</option>
-						  <option value="C">C</option>
-						  <option value="C++">C++</option>
-						  <option value="Python">Python</option>
+							<option selected>Choose Language...</option>
+							<option value="Java">Java</option>
+							<option value="C">C</option>
+							<option value="C++">C++</option>
+							<option value="Python">Python</option>
 						</select>
 					</div>
-
-					<div class="col-12 w-25 mb-2"> <!-- div class = "col-auto" -->
+					<div class="col-auto"> <!-- div class = "col-auto" -->
 						<label class="visually-hidden" for="autoSizingSelect"> Preference </label>
-						<select class = "form-select" id = "autoSizingSelect">
-							<option Selected> Choose... </option>
-							<option value = "1"> 3024-day</option>
-							<option value = "2"> 3024-night</option>
-							<option value = "3"> abbot </option>
-						</select>
+							<select class = "form-select" id = "autoSizingSelect">
+								<option Selected> Choose Theme...</option>
+								<option value = "1"> 3024-day</option>
+								<option value = "2"> 3024-night</option>
+								<option value = "3"> abbot </option>
+							</select>
+					</div>
 
-
-					<div>
+					<div class = "row">
 						<form method = "POST" action = "/compiler">
 							<textarea name = "data" id = "editor"> </textarea>
-							<button type = "submit"> Run</button>
+							<button type = "submit" class = "row btn btn-info"> Run </button>
 						</form>
-				
-						<hr/>
-				
 						<div> 
 							{{ data }}
 						</div>
-				
-						<script type = "text/javascript"> 
-							var editor = CodeMirror.fromTextArea(
-								document.getElementById('editor'),
-								{
-									mode: 'text/x-python',
-									theme: "monokai",
-									lineNumbers: true,
-									autoCloseTags: true,
-									autoCloseBrackets: true,
-									tabSize: 4
-								});
-
-							var width = window.innerWidth
-
-							var input = document.getElementById("Input")
-							var output = document.getElementById("Output")
-					
-							editor.setSize(0.5 * width, "500")
-
-
-							var option = document.getElementById("inlineFormSelectPref")
-							option.addEventListener("change", function(){
-							if(option.value == "Java"){
-							editor.setOption("mode", "text/x-java")
-							}
-							else if(option.value == "Python"){
-							editor.setOption("mode", "text/x-python")
-							}
-							else {
-							editor.setOption("mode", "text/x-c++src")
-							}
-							})
-
-						</script>
-						
 
 					</div>
+				
+				
+						
 
 				</div>
 
 				<div class = "col d-flex flex-column rounded bg-dark px-4 positon-absolute top-50 end-50">
-					<div class = "h-50">
+					<div class = "h-25">
 						<label for = "Input" class = "text-light mt-4 mb-2 "> Input </label>
 						<textarea type = "text" class = "form-control h-75 " aria-label = "last name"> </textarea>
 					</div>
-					<div class = "h-50">
+					<div class = "h-25">
 						<label for = "Output" class = "text-light mb-2"> Output </label>
 						<textarea type = "text" class = "form-control h-75" aria-label = "last name"> </textarea>
 					</div>
 				</div>
 
 
-			<div>
-							<!-- Button to rub the compiler -->
-					<div class="d-grid gap-2 d-md-flex justify-content-md-end"> <!-- div class="col- auto"> -->
-						<button type="button" class="btn btn-success">Debug Button</button>
+				
+
+				
+
+							<!-- Button to rub the compiler 
+					<div class="d-grid gap-2 d-md-flex justify-content-md-end">  div class="col- auto"> 
+						<button type="button" class="btn btn-success">Debug Button 1</button>
 						<button type="button"  class="btn btn-info"><i class="bi bi-play-fill"></i></button>
-					</div>
-					
-		</div>
-
-	</div>		
-
-</div>
+					</div> -->
 
 		
 </body>	
+
+<script type = "text/javascript"> 
+	var editor = CodeMirror.fromTextArea(
+		document.getElementById('editor'),
+		{
+			mode: 'text/x-python',
+			theme: "monokai",
+			lineNumbers: true,
+			autoCloseTags: true,
+			autoCloseBrackets: true,
+			tabSize: 4
+		});
+
+	var width = window.innerWidth
+
+	var input = document.getElementById("Input")
+	var output = document.getElementById("Output")
+
+	editor.setSize(0.5 * width, "500")
+
+
+	var option = document.getElementById("inlineFormSelectPref")
+	option.addEventListener("change", function(){
+	if(option.value == "Java"){
+	editor.setOption("mode", "text/x-java")
+	}
+	else if(option.value == "Python"){
+	editor.setOption("mode", "text/x-python")
+	}
+	else {
+	editor.setOption("mode", "text/x-c++src")
+	}
+	})
+
+</script>
+
+
+
 </html>
 			
 {% endblock %}
