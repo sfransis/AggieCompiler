@@ -798,6 +798,7 @@ color: #a75d54;
   height: 60%;
   padding: 40px;
   padding-bottom: 0;
+  padding-top: 1.5%;
   transform: translate(-50%, -50%);
   background: rgba(0,0,0,.5);
   box-sizing: border-box;
@@ -807,7 +808,7 @@ color: #a75d54;
 }
 
 #post-q-form{
-  height: 40%;
+  height: 50%;
 }
 
 .post-question-container h2 {
@@ -818,13 +819,12 @@ color: #a75d54;
 }
 
 #input-box{
-  
   height: 100%;
 }
 
 #question-options{
   position: relative;
-  height: 100%;
+  height: 75%;
 }
 
 #successMSG-question{
@@ -832,11 +832,28 @@ color: #a75d54;
   top: 0;
   color: #fff;
   text-align: center;
+  margin: 0;
 }
 
 #post-q-header{
   height: 10%;
   width: 5;
-  margin-bottom: 5%;
+  margin-bottom: 2%;
+}
+
+.label{
+  color: white;
+}
+
+#chose-class-div{
+  position: relative;
+  top: 20px;
+  height: 20%;
+  display: block;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 auto;
+  flex: 1;
 }
 

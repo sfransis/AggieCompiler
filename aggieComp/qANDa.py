@@ -12,22 +12,39 @@ def pstQst():
     # check if a user is logged in and if they are they can post but if they're not they can't post questions
     if current_user.is_authenticated:
         if request.method == "POST":
+            session.permanent = True
+            # checking what class is currently selected by the user 
+            if request.form['class-options'] == "CS-1":
+                session["questionClass"] =  "CS-1"
+            elif request.form['class-options'] == "CS-2":
+                session["questionClass"] = "CS-2"
+            elif request.form['class-options'] == "CS-3":
+                session["questionClass"] = "CS-3"
+            elif request.form['class-options'] == "CS-4":
+                session["questionClass"] = "CS-4" 
+            elif request.form['class-options'] == "General":
+                session["questionClass"] = "General" 
+
             # changes the page depending on whether the user selects post, change class, or post other question buttons
-            if request.form['submit-button'] == "Change Class":
-                return redirect(url_for("qANDa.showClasses"))
-            elif request.form['submit-button'] == "Post Other Question":
-                return redirect(url_for("qANDa.showClasses"))
-            elif request.form['submit-button'] == "Post":
-                session.permanent = True
+            # There has been a change to how the questions are made which means there doesn't need to be the options to go back to "showclass"
+            # I will keep them here however just incase something happens in the future
+            #if request.form['submit-button'] == "Change Class":
+            #   return redirect(url_for("qANDa.showClasses"))
+            #elif request.form['submit-button'] == "Post Other Question":
+            #    return redirect(url_for("qANDa.showClasses"))
+            
+            if request.form['submit-button'] == "Post":
+                
                 questionPost = request.form['userQuestion'] # gets the info from the question box
                 csClass = session['questionClass'] # sets this info based on the users selected class
                 question = Questions(questionPost, csClass, current_user.username) # creating a new entry in the db model or "table"
                 db.session.add(question) # adding this question model to the db
                 db.session.commit()
                 flash("Post successful!...")
+
     else:
         flash("You have to be logged in to post a question...")
-        return redirect(url_for("qANDa.showClasses"))
+        return redirect(url_for("login"))
     return render_template("qANDa.html")
 
 @qANDa.route("/showingClassOptions", methods = ["POST", "GET"])
