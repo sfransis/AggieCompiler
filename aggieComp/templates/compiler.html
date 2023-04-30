@@ -37,116 +37,49 @@
 		<link href = "static/theme/monokai.css"rel="stylesheet"/>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">		
 		
-		<style>
-			*{
-				margin: 0px;
-				padding: 0px;
-				box-sizing: border-box;
-			}
-		</style>
+	
 	
 	</head>
 
 	<body>
-		<div class = "container bg-light rounded">
-			<div class = "row m-3">
-				<div class = "col-auto">
-						 <!-- div class ="col-12 w-25"-->
-					<label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
-						<select class="form-select" id="inlineFormSelectPref">
-							<option selected>Choose Language...</option>
-							<option value="Java">Java</option>
-							<option value="C">C</option>
-							<option value="C++">C++</option>
-							<option value="Python">Python</option>
-						</select>
-					</div>
-					<div class="col-auto"> <!-- div class = "col-auto" -->
-						<label class="visually-hidden" for="autoSizingSelect"> Preference </label>
-							<select class = "form-select" id = "autoSizingSelect">
-								<option Selected> Choose Theme...</option>
-								<option value = "1"> 3024-day</option>
-								<option value = "2"> 3024-night</option>
-								<option value = "3"> abbot </option>
-							</select>
-					</div>
+	
+		<form method = "POST" action = "/compiler" id = "code-form">
+			<textarea id = "editor" name = "data"> </textarea>
+			<button type = "submit"> Compile </button>
+		</form>
 
-					<div class = "row">
-						<form method = "POST" action = "/compiler">
-							<textarea name = "data" id = "editor"> </textarea>
-							<button type = "submit" class = "row btn btn-info"> Run </button>
-						</form>
-						<div> 
-							{{ data }}
-						</div>
+		<div id = "output"></div> 
 
-					</div>
-				
-				
-						
+			<!-- test if this works either inside of body or outside of the body html -->
+			<script> 
+				var editor = CodeMirror.fromTextArea(
+					document.getElementById('editor'),
+					{
+						mode: "python",
+						theme: "monokai",
+						lineNumbers: true,
+						autoCloseTags: true,
+						autoCloseBrackets: true,
+						tabSize: 4,
+						indentUnit: 4
+					});
 
-				</div>
+				var form = document.getElementById('code-form');
+				form.addEventListener('submit', function(e){
+					e.preventDefault();
+					var code = editor.getValue();
+					fetch('/compiler', {
+						method: 'POST',
+						body: new FormData(form)
+					})
+					.then(response => reponse.json())
+					.then(data => {
+						document.getElementById('output').textContent = data.output;
+					});
+				});
 
-				<div class = "col d-flex flex-column rounded bg-dark px-4 positon-absolute top-50 end-50">
-					<div class = "h-25">
-						<label for = "Input" class = "text-light mt-4 mb-2 "> Input </label>
-						<textarea type = "text" class = "form-control h-75 " aria-label = "last name"> </textarea>
-					</div>
-					<div class = "h-25">
-						<label for = "Output" class = "text-light mb-2"> Output </label>
-						<textarea type = "text" class = "form-control h-75" aria-label = "last name"> </textarea>
-					</div>
-				</div>
-
-
-				
-
-				
-
-							<!-- Button to rub the compiler 
-					<div class="d-grid gap-2 d-md-flex justify-content-md-end">  div class="col- auto"> 
-						<button type="button" class="btn btn-success">Debug Button 1</button>
-						<button type="button"  class="btn btn-info"><i class="bi bi-play-fill"></i></button>
-					</div> -->
-
-		
+			</script>
 </body>	
-
-<script type = "text/javascript"> 
-	var editor = CodeMirror.fromTextArea(
-		document.getElementById('editor'),
-		{
-			mode: 'text/x-python',
-			theme: "monokai",
-			lineNumbers: true,
-			autoCloseTags: true,
-			autoCloseBrackets: true,
-			tabSize: 4
-		});
-
-	var width = window.innerWidth
-
-	var input = document.getElementById("Input")
-	var output = document.getElementById("Output")
-
-	editor.setSize(0.5 * width, "500")
-
-
-	var option = document.getElementById("inlineFormSelectPref")
-	option.addEventListener("change", function(){
-	if(option.value == "Java"){
-	editor.setOption("mode", "text/x-java")
-	}
-	else if(option.value == "Python"){
-	editor.setOption("mode", "text/x-python")
-	}
-	else {
-	editor.setOption("mode", "text/x-c++src")
-	}
-	})
-
-</script>
-
 
 
 </html>
