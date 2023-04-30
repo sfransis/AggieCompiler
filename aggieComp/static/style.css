@@ -216,14 +216,13 @@ h1{
     padding-left: 0;
 }
 
-.accordion, .accordion-item, .accordion-head, .accordion-body{
+.accordion, .accordion-item, .accordion-head{
     
-    /*position: relative;
+    position: relative;
     left: 50%;
     transform: translate(-50%);
-    width: 75%;*/
-    
-   
+    width: 80%;
+
 }
 
 .navbar {
@@ -855,5 +854,13 @@ color: #a75d54;
   align-items: center;
   margin: 0 auto;
   flex: 1;
+}
+
+.input-group{
+  width: 100%;
+}
+
+#response-box{
+  width: 50%;
 }
 

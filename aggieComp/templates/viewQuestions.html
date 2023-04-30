@@ -99,7 +99,7 @@
                               {% endif %}
                           </ul>
                         </div>
-                          <p>{{comment.content}}</p>
+                          <p style="white-space: pre-line">{{comment.content}}</p>
                           <p> Comment By: {{comment.posterUsername}}</p> 
                       </div>  
                       <br>
@@ -107,7 +107,12 @@
                     
                 {% endfor %}
                 <form class = "input-group" action = "/createComment/{{item._id}}/{{item.csClass}}" method = "post"> 
-                        <input type = "text" placeholder = "enter response..." id = "response-box" name = "userResponse" size = 40/> <!-- name is used in the python stuff and id is used in the css stuff -->
+                        <!--<input type = "text" placeholder = "enter response..." id = "response-box" name = "userResponse" size = 40/>  name is used in the python stuff and id is used in the css stuff -->
+
+                          <!--<input type = "text" placeholder = "enter question..." id = "question-box" name = "userQuestion" size = 40/>  name is used in the python stuff and id is used in the css stuff -->
+                        <textarea name="userResponse" id = "response-box"></textarea>
+
+                        
                         <input type = "submit" name = "submit-button" value = "Post Response" id = "create-comment-box" onkeydown = "return event.key != 'Enter';" />
                 </form>
             </div>
