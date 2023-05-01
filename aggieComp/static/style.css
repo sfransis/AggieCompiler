@@ -864,3 +864,13 @@ color: #a75d54;
   width: 50%;
 }
 
+#settings-options{
+  position: absolute;
+  left: -60%;
+}
+
+#settings-dropdown{
+  position: absolute;
+  left: 92%;
+}
+

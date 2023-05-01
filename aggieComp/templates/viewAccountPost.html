@@ -1,0 +1,103 @@
+{% extends "baseTemplate.html" %}
+
+{% block title %} Q&A {% endblock %}
+
+{% block pageContent %}
+    <var id = "counter"></var>
+
+    <!-- Will be loading in each questions template and each questions comments templates -->
+    {% for item in htmlQuestion %}
+      <div class="accordion accordion-flush" id="accordionPanel-Questions">
+        <div class="accordion-item">
+
+          <!-- This is where the three dots show up for the post options -->
+          <div id = "test-cont">
+            <div id="container">
+              <div id="menu-wrap">
+                <input type="checkbox" class="toggler" />
+                <div class="dots">
+                  <div></div>
+                </div>
+                <div class="menu">
+                  
+                    <ul class = "post-options">
+                      {% if item.posterName == currentUser%}
+                        
+                          <form class = "input-group" action = "/deletePost/{{item._id}}/{{item.csClass}}" method = "post" id = "delete-button-form"> 
+                            <input type = "submit" name = "submit-button" value = "Delete Post" id = "delete-post-box" />
+                          </form>
+                        
+                      {% endif %}
+                      <form class = "input-group" action = "/reportPost/{{item._id}}/{{item.csClass}}" method = "post"> 
+                        <input type = "submit" name = "submit-button" value = "Report Post" id = "report-post-box" />
+                      </form>
+                    </ul>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- The rest of the info in the post header -->
+
+          <h2 class="accordion-header" id = "accordionPanel-Questions">
+            <button id = "post-button-info" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-{{item._id}}" aria-expanded="false" aria-controls="panelsStayOpen-{{item._id}}">
+              <div class = "question-info">
+                <p id = "question-info">Class: {{item.csClass}} Posted by: {{item.posterName}} </p><!-- .csCSClass, posterName, and ._id are all attributes in the db model -->
+                <br>
+                <div class = "question-header">
+                  <p style="white-space: pre-line"> <strong>Question: <br> <br> </strong> {{item.userQuestion}} </p>
+                  <br>
+                </div>
+              </div>
+            </button>
+          </h2>
+          <div id="panelsStayOpen-{{item._id}}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+            <div class="accordion-body">
+                <p><strong>Comments: </strong></p>
+                <br>
+
+                <!-- TODO: changee the buttons so that they are '...' that give you the option to delete or report -->
+
+                {% for comment in htmlResponses %}
+                    {% if comment.post_id == item._id %}   
+                      <div class = "comment-box">
+                        <div class="dropdown-center">
+                          <button type = "button" class = "btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id = "options-comment"> ... </button>
+                          <ul class = "dropdown-menu"> 
+                            <form class = "del-comm" action = "/reportComment/{{comment.id}}/{{item.csClass}}" method = "post"> 
+                              <input type = "submit" name = "submit-button" value = "Report Comment" id = "delete-comment-box" />
+                            </form>
+                            {% if comment.posterUsername == currentUser %}
+                              <!-- Kind of like the last if checking if currentUser is the same as the comment poster. If they are they can delete the post and if not
+                                    they are not given the option to delete  -->
+                              
+                                <form class = "del-comm" action = "/deleteComment/{{comment.id}}/{{item.csClass}}" method = "post"> 
+                                  <input type = "submit" name = "submit-button" value = "Delete Comment" id = "delete-comment-box" />
+                                </form>
+                              
+                              {% endif %}
+                          </ul>
+                        </div>
+                          <p style="white-space: pre-line">{{comment.content}}</p>
+                          <p> Comment By: {{comment.posterUsername}}</p> 
+                      </div>  
+                      <br>
+                    {% endif %}
+                    
+                {% endfor %}
+                <form class = "input-group" action = "/createComment/{{item._id}}/{{item.csClass}}" method = "post"> 
+                        <!--<input type = "text" placeholder = "enter response..." id = "response-box" name = "userResponse" size = 40/>  name is used in the python stuff and id is used in the css stuff -->
+
+                          <!--<input type = "text" placeholder = "enter question..." id = "question-box" name = "userQuestion" size = 40/>  name is used in the python stuff and id is used in the css stuff -->
+                        <textarea name="userResponse" id = "response-box"></textarea>
+
+                        
+                        <input type = "submit" name = "submit-button" value = "Post Response" id = "create-comment-box" onkeydown = "return event.key != 'Enter';" />
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+{% endblock %}
