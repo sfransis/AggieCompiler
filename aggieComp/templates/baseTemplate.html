@@ -37,7 +37,7 @@
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Q&A
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" style="font-size:1.2vw;">
                       <li><a class="dropdown-item" href="/postQuestion"> Post A Question </a></li>
                       <li><a class="dropdown-item" href="/viewQuestions"> View Other Post </a></li>
                     </ul>
@@ -46,11 +46,11 @@
                   <!-- Checks if the user is an admin which you can decide as of right now 
                             by putting your nmsu email in the register route in the main.py -->
                   {% if current_user.isAdmin == "True" %}
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" >
                       <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Admin
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul class="dropdown-menu" style="font-size:1.2vw;">
                         <li><a class="dropdown-item" href="/view"> Users </a></li>
                         <li><a class="dropdown-item" href="/viewReportedComments"> Reported Comments </a></li>
                         <li><a class="dropdown-item" href="/viewReportedQuestions"> Reported Post </a></li>
@@ -70,11 +70,21 @@
                         </from>
                     </ul> -->
                     
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="/register"> Create Account </a></li>
-                      <li><a class="dropdown-item" href="/deleteAccount"> Delete Account </a></li>
+                    <ul class="dropdown-menu" style="font-size:1.2vw;">
+                      
+                      {% if not current_user.is_authenticated %}
                       <li><a class="dropdown-item" href="/login"> Login </a></li>
+                      <li><a class="dropdown-item" href="/register"> Create Account </a></li>
+                      {% endif %}
+                      
+                      {% if current_user.is_authenticated %}
                       <li><a class="dropdown-item" href="/logout"> Logout </a></li>
+                      <li><a class="dropdown-item" href="/viewAccountPost"> View Post </a></li>
+                      <div class="dropdown-divider"></div>
+                      <li><a class="dropdown-item" href="/deleteAccount"> Delete Account </a></li>
+                      {% endif %}
+                      
+                      
                     </ul>
                   </li>
                 </ul>

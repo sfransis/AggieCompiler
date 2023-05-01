@@ -328,3 +328,16 @@ def viewCS4():
         if q.count() == 0:
             return render_template("emptyClass.html")
         return render_template("viewQuestions.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = "notSignedIn")
+    
+@qANDa.route("/viewAccountPost", methods = ["POST", "GET"])
+def viewAccountPost():
+    q = Questions.query.filter_by(posterName = current_user.username )
+    if current_user.is_authenticated:
+        if q.count() == 0:
+                return render_template("emptyClass.html")
+        else:
+            return render_template("viewAccountPost.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = current_user.username)
+    else:
+        if q.count() == 0:
+            return render_template("emptyClass.html")
+        return render_template("viewAccountPost.html", htmlQuestion = q, htmlResponses = Comment.query.all(), currentUser = "notSignedIn")
