@@ -1,120 +1,120 @@
 <!doctype html>
 
+<!-- There are going to be some things that have "style = "font-size:1.2vw" and having this make it so that the font size changes 
+      as the screen size changes. So if the screen gets smaller so does the font size-->
+
 <html lang="en">
-    <head>
 
-        <!-- the following are link that you have to use to be able to use bootstrap -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <!-- end of the links needed for bootstrap -->
-        <link rel = "stylesheet" href = "{{url_for('static', filename = 'style.css')}}">
-        <title> {% block title %} {% endblock %} </title>
-    
-    </head>
-    <body>
+  <head>
+    <!-- the following are link that you have to use to be able to use bootstrap -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- end of the links needed for bootstrap -->
+    <link rel = "stylesheet" href = "{{url_for('static', filename = 'style.css')}}">
+    <title> {% block title %} {% endblock %} </title>
+  </head>
 
-        <!-- this is the start of the nav bar that can be found at the top of each page 
-             it was taken from boot strap so we wouldn't have to worry a shit load about creating it -->
-	<div id = "navbarone" style="font-size:1.2vw;">
-		<nav class="navbar navbar-expand-lg bg-body-tertiary" style="font-size:1.2vw;">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="/home"> CSisEZ </a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <!-- <a class="nav-link active" aria-current="page" href="#">Compiler</a> -->
-                    <a class="nav-link" aria-current="page" href="/compiler">Compiler</a> <!-- this one is the same as the line before but doesn't have "active" which means it isn't highlighted the whole time -->
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/roadmap">Roadmap</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Q&A
-                    </a>
-                    <ul class="dropdown-menu" style="font-size:1.2vw;">
-                      <li><a class="dropdown-item" href="/postQuestion"> Post A Question </a></li>
-                      <li><a class="dropdown-item" href="/viewQuestions"> View Other Post </a></li>
-                    </ul>
-                  </li>
+  <body>
 
-                  <!-- Checks if the user is an admin which you can decide as of right now 
-                            by putting your nmsu email in the register route in the main.py -->
-                  {% if current_user.isAdmin == "True" %}
-                    <li class="nav-item dropdown" >
-                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Admin
-                      </a>
-                      <ul class="dropdown-menu" style="font-size:1.2vw;">
-                        <li><a class="dropdown-item" href="/view"> Users </a></li>
-                        <li><a class="dropdown-item" href="/viewReportedComments"> Reported Comments </a></li>
-                        <li><a class="dropdown-item" href="/viewReportedQuestions"> Reported Post </a></li>
-                      </ul>
-                    </li>
-                  {% endif %}
-
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Settings
-                    </a>
-                    <!--
-                    <ul class = "dropdown-menu">
-                        <from action = "#" method = "get">
-                            <input type = "submit" id = "lobutt" name = "lobutt" value = Logout><br><br>
-                            <input type = "submit" id = "libutt" name = "libutt" value = Login><br><br>
-                        </from>
-                    </ul> -->
-                    
-                    <ul class="dropdown-menu" style="font-size:1.2vw;">
-                      
-                      {% if not current_user.is_authenticated %}
-                      <li><a class="dropdown-item" href="/login"> Login </a></li>
-                      <li><a class="dropdown-item" href="/register"> Create Account </a></li>
-                      {% endif %}
-                      
-                      {% if current_user.is_authenticated %}
-                      <li><a class="dropdown-item" href="/logout"> Logout </a></li>
-                      <li><a class="dropdown-item" href="/viewAccountPost"> View Post </a></li>
-                      <div class="dropdown-divider"></div>
-                      <li><a class="dropdown-item" href="/deleteAccount"> Delete Account </a></li>
-                      {% endif %}
-                      
-                      
-                    </ul>
-                  </li>
+    <!-- this is the start of the nav bar that can be found at the top of each page 
+          it was taken from boot strap so we wouldn't have to worry a shit load about creating it -->
+    <div id = "navbarone" style="font-size:1.2vw;">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary" style="font-size:1.2vw;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/home"> CSisEZ </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <!-- <a class="nav-link active" aria-current="page" href="#">Compiler</a> -->
+                <a class="nav-link" aria-current="page" href="/compiler">Compiler</a> <!-- this one is the same as the line before but doesn't have "active" which means it isn't highlighted the whole time -->
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/roadmap">Roadmap</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Q&A
+                </a>
+                <ul class="dropdown-menu" style="font-size:1.2vw;">
+                  <li><a class="dropdown-item" href="/postQuestion"> Post A Question </a></li>
+                  <li><a class="dropdown-item" href="/viewQuestions"> View Other Post </a></li>
                 </ul>
+              </li>
 
-                <li class="nav-link" id = "username-info">
-                  <!-- Just checks if there is currently a user logged in and if there is then the 
-                  username is shown in settings just so you know who you're logged as -->
-                  {% if current_user.is_authenticated %}
-                  <a> User: {{current_user.username}}</a>
-                  {% endif %}
+              <!-- Checks if the user is an admin which you can decide as of right now 
+                        by putting your nmsu email in the register route in the main.py -->
+              {% if current_user.isAdmin == "True" %}
+                <li class="nav-item dropdown" >
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Admin
+                  </a>
+                  <ul class="dropdown-menu" style="font-size:1.2vw;">
+                    <li><a class="dropdown-item" href="/view"> Users </a></li>
+                    <li><a class="dropdown-item" href="/viewReportedComments"> Reported Comments </a></li>
+                    <li><a class="dropdown-item" href="/viewReportedQuestions"> Reported Post </a></li>
+                  </ul>
                 </li>
-              </div>
-            </div>
-        </nav> <!-- this is the end of the nav bar section -->
-	</div>
-        <!-- <p> {{content}}... is the paramter passing test for html</p> -->
-        <!-- this is a way to add in actual python code even if it's limited -->
-        <!-- You can add in a lot of other python thins like ifs and shit but there is a 
-             specific way of ending the statements so you should look into that when you have the chance -->
+              {% endif %}
+            </ul>
 
-        <!-- if you want to use python vars and shit you need the, which is called a statement or something -->
-        <!-- {% for x in list %} 
-            <p> {{x}} </p>
-        {% endfor %} --> 
+            <ul class = "navbar-nav" id = "settings-dropdown">
 
-        <div class = "container-fluid">
-            {% block pageContent %} 
-            {% endblock %}
+              <li class="nav-item dropdown" >
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Settings
+                </a>
+                <!--
+                <ul class = "dropdown-menu">
+                    <from action = "#" method = "get">
+                        <input type = "submit" id = "lobutt" name = "lobutt" value = Logout><br><br>
+                        <input type = "submit" id = "libutt" name = "libutt" value = Login><br><br>
+                    </from>
+                </ul> -->
+                
+                <ul class="dropdown-menu" style="font-size:1.2vw;" id = "settings-options">
+                  {% if not current_user.is_authenticated %}
+                  <li><a class="dropdown-item" href="/login"> Login </a></li>
+                  <li><a class="dropdown-item" href="/register"> Create Account </a></li>
+                  {% endif %}
+                  
+                  {% if current_user.is_authenticated %}
+
+                  <li><a class="dropdown-item" href="#"> User: {{current_user.username}} </a></li>
+                  <div class="dropdown-divider"></div>
+                  <li><a class="dropdown-item" href="/logout"> Logout </a></li>
+                  <li><a class="dropdown-item" href="/viewAccountPost"> View Post </a></li>
+                  <div class="dropdown-divider"></div>
+                  <li><a class="dropdown-item" href="/deleteAccount"> Delete Account </a></li>
+                  {% endif %}
+                </ul>
+              </li>
+
+            </ul>
+
+          </div>
         </div>
-        <!-- link and stuff that is needed to use bootstrap stuff -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    </body>
+      </nav> <!-- this is the end of the nav bar section -->
+    </div>
+    <!-- <p> {{content}}... is the paramter passing test for html</p> -->
+    <!-- this is a way to add in actual python code even if it's limited -->
+    <!-- You can add in a lot of other python thins like ifs and shit but there is a 
+          specific way of ending the statements so you should look into that when you have the chance -->
+
+    <!-- if you want to use python vars and shit you need the, which is called a statement or something -->
+    <!-- {% for x in list %} 
+        <p> {{x}} </p>
+    {% endfor %} --> 
+
+    <div class = "container-fluid">
+        {% block pageContent %} 
+        {% endblock %}
+    </div>
+    <!-- link and stuff that is needed to use bootstrap stuff -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  </body>
 </html>
