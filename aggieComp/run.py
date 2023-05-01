@@ -7,22 +7,31 @@ from flask import Flask
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import subprocess
+
+
 from flask_codemirror import CodeMirror
 from flask_wtf import FlaskForm
 from flask_codemirror.fields import CodeMirrorField
 from wtforms.fields import SubmitField
 
 
-SECRET_KEY = 'secret!'
-CODEMIRROR_LANGUAGES = ['python', 'html', 'java', 'c++','c']
+from flask import Flask
+from flask_codemirror import CodeMirror
+# mandatory
+CODEMIRROR_LANGUAGES = ['python', 'yaml', 'htmlembedded', 'Java', 'C++']
 WTF_CSRF_ENABLED = True
-
-CODEMIRROR_THEME = 'monokai'
-CODEMIRROR_ADDONS = ( 
-            ('display', 'placeholder'),
+SECRET_KEY = 'secret'
+# optional
+CODEMIRROR_THEME = '3024-night'
+CODEMIRROR_ADDONS = (
+        ('ADDON_DIR','ADDON_NAME'),
 )
 
 app = Flask(__name__)
+CORS(app)
 app.config.from_object(__name__)
 codemirror = CodeMirror(app)
 
