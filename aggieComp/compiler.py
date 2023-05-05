@@ -13,6 +13,7 @@ from flask_codemirror.fields import CodeMirrorField
 from wtforms.fields import SubmitField
 from wtforms import TextAreaField
 
+from wtforms import FileField, SubmitField
 
 
 import subprocess
@@ -36,8 +37,15 @@ CODEMIRROR_ADDONS = (
         ('ADDON_DIR','ADDON_NAME'),
 )
 
+
+
 class MyForm(FlaskForm):
-    source_code = CodeMirrorField(language='python', config={'lineNumbers': 'true'})
+    source_code = CodeMirrorField(language='python', config={'lineNumbers': True , 'tabsize' : 3})
+    submit = SubmitField('Submit')
+    
+
+class JavaFileFOrm(FlaskForm):
+    java_file = CodeMirrorField(language = 'Java', config={'lineNumbers': True})
     submit = SubmitField('Submit')
 
 
@@ -82,6 +90,10 @@ def compilerPage():
     # if editor.validate_on_submit():
     #     text = editor.source_code.data
     # return render_template("compiler.html", form = editor)
+    
+    
+
+
     
 @compiler.route("/compiler/python", methods=["POST"])
 def compile_code():

@@ -31,13 +31,22 @@
 		<script src = "addon/show-hint.js"> </script>
 		<script rel = "stylesheet" href = "addon/show-hint.css"></script>
 
-		<script src = "codemirror5-master//addon/closetag.js"> </script>
+		<script src = "codemirror5-master/addon/closetag.js"> </script>
 		<script src = "static/addon/closeBracket.js"> </script>
 		<link href = "static/theme/dracula.css"rel="stylesheet"/>
 		<link href = "static/theme/monokai.css"rel="stylesheet"/>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">		
 
+		<!-- Theme -->
+		<link href = "codemirror5-master/theme/3024-day.css"rel="stylesheet"/>
+		<link href = "codemirror5-master/theme/3024-night.css"rel="stylesheet"/>
+		<link href = "codemirror5-master/theme/abbott.css"rel="stylesheet"/>
+		<link href = "codemirror5-master/theme/abcdef.css"rel="stylesheet"/>
+		<link href = "codemirror5-master/theme/ambiance.css"rel="stylesheet"/>
+		<link href = "codemirror5-master/theme/ambiance-mobile.css"rel="stylesheet"/>
+		<link href = "codemirror5-master/theme/ayu-dark.css"rel="stylesheet"/>
 
+		
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/theme/material.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.js"></script>
@@ -45,11 +54,11 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/addon/edit/matchbrackets.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/addon/selection/active-line.min.js"></script>
 		
-	
+		
 	
 	</head>
 	<body>
-		<div class = "container bg-dark rounded">
+		<div class = "container bg-light rounded">
 			<div class = "row m-3">
 				<div class = "col-auto">
 					<label class = "visually-hidden" for = "inlineFormSelectPref"> Preferences</label>
@@ -68,25 +77,64 @@
 									<option value = "1"> 3024-day</option>
 									<option value = "2"> 3024-night</option>
 									<option value = "3"> abbot </option>
+									<option value = "4"> abcdef </option>
+									<option value = "5"> ambiance-mobile </option>
+									<option value = "6"> ambiance </option>
+									<option value = "7"> ayu-dark </option>
+									<option value = "8"> ayu-mirage </option>
+									<option value = "9"> base16-dark </option>
+									<option value = "10"> base16-light </option>
+
 								</select>
 							</div>
-							<form action = {{ url_for('compiler.compilerPage')}} method="POST">
+							<form id = "editor" action = {{ url_for('compiler.compilerPage')}} method="POST">
 								{{ form.csrf_token }}
-								{{ form.source_code }}
+								{{ form.source_code }} 
+								
 								<input type="submit" value="RUN">
 							 </form>
 							 <div class = "form-group">
-								<label for = "ct2"> three trees </label>
+								<label for = "ct2"> Display if it worked or not </label>
 								<textarea name  placeholder = "three trees" class = "form-control"> {{ result['code']}} </textarea>
 								<br>
-								<label for ="content"> beta</label>
+								<label for ="content"> Output</label>
 								<textarea name = "content" placeholder ="beta" cols = "30" rows = "8" class = "form-control"> {{result['output']}}</textarea>
 							 </div>
-					
+
+							 <p style = "margin-bottom: 50px;">  </p>
+
+							
+
+							
+						
+							
 
 				</div>
 			</div>
 		</div>
+
+
+		<script> 
+			
+
+			var input = document.createElement('select');
+			function selectTheme() {
+				var theme = input.options[input.selectedIndex].textContent;
+				form.setOption("theme", theme);
+				location.hash = "#" + theme;
+			}
+			var choice = (location.has && location.has.slice(1)) ||
+						(document.location.search && 
+						decodeURIComponenet(document.location.search.slice(1)));
+			if (choice) {
+				input.value = choice;
+				form.setOption("theme", choice);
+			}
+			CodeMirror.on(window, "hashchange", function(){
+				var theme = location.hash.slice(1);
+				if (theme) { input.value = theme; selectTheme();}
+			});
+		</script>
 
 		<!-- 
 		<textarea id="code"></textarea>

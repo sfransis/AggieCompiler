@@ -1,29 +1,29 @@
 import os, sys, subprocess, tempfile, time
 
 
-# 创建临时文件夹,返回临时文件夹路径
+# Creating a temporary folder and returning the temporary folder path
 TempFile = tempfile.mkdtemp(suffix='_test', prefix='python_')
-# 文件名
+# Filename
 FileNum = int(time.time() * 1000)
-# python编译器位置
+# python compiler location
 EXEC = sys.executable
 
 
 
-# 获取python版本
+# get python version
 def get_version():
     v = sys.version_info
     version = "python %s.%s" % (v.major, v.minor)
     return version
 
 
-# 获得py文件名
+# Getting the py file name
 def get_pyname():
     global FileNum
     return 'test_%d' % FileNum
 
 
-# 接收代码写入文件
+# Receive code to write to file 
 def write_file(pyname, code):
     fpath = os.path.join(TempFile, '%s.py' % pyname)
     with open(fpath, 'w', encoding='utf-8') as f:
@@ -32,14 +32,13 @@ def write_file(pyname, code):
     return fpath
 
 
-# 编码
+# Encoding
 def decode(s):
     try:
         return s.decode('utf-8')
     except UnicodeDecodeError:
         return s.decode('gbk')
 
-        # 主执行函数
 
 
 def main(code):
@@ -48,23 +47,23 @@ def main(code):
     pyname = get_pyname()
     fpath = write_file(pyname, code)
     try:
-        # subprocess.check_output 是 父进程等待子进程完成，返回子进程向标准输出的输出结果
-        # stderr是标准输出的类型
-        # subprocess.check_output 执行一条shell命令
+		# subprocess.check_output is the parent process waits for the child process to complete,
+  		# and returns the output result of the child process to the standard output
+        # stderr is the type of standard output
+        # subprocess.check_output Execute a shell command
         outdata = decode(subprocess.check_output([EXEC, fpath], stderr=subprocess.STDOUT, timeout=10))
     except subprocess.CalledProcessError as e:
-        # e.output是错误信息标准输出
-        # 错误返回的数据
+        #Error case handling of output
         r["code"] = 'Error'
         r["output"] = decode(e.output)
         return r
     else:
-        # 成功返回的数据
+        # Successfully returned data
         r['output'] = outdata
         r["code"] = "Success"
         return r
     finally:
-        # 删除文件(其实不用删除临时文件会自动删除)
+        # deleting the file and it automatically deleted without deleting the temporary file 
         try:
             os.remove(fpath)
         except Exception as e:

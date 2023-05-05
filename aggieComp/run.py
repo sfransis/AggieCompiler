@@ -25,7 +25,7 @@ CODEMIRROR_LANGUAGES = ['python', 'yaml', 'htmlembedded', 'Java', 'C++']
 WTF_CSRF_ENABLED = True
 SECRET_KEY = 'secret'
 # optional
-CODEMIRROR_THEME = '3024-night'
+CODEMIRROR_THEME = 'monokai'
 CODEMIRROR_ADDONS = (
         ('ADDON_DIR','ADDON_NAME'),
 )
