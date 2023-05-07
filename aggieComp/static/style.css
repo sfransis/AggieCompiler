@@ -1,13 +1,15 @@
 html {
     height: 100%;
     overflow-y: scroll;
+    min-width: 900px;
+
 }
 
 /* setting some values that will be used in all pages such as the background color of the web page. */
 body {
     margin:0;
     padding:0;
-    font-family: sans-serif;
+    font-family: IBMPlexSans, Arial, sans-serif;
     background: #00337C;
     height: 100%;
     
@@ -88,23 +90,24 @@ h1{
     flex-direction: row;
     align-items: center;
     padding: 0;
-    border-radius: 0%;
-    outline-style: solid;
-    outline-width: 1px;
-    outline-color: rgb(153, 144, 144);
+
 }
 
+/* This was needed before the buttons for the class selection was changed to be more round. It would
+ change the container that held the buttons */ 
 .btn-container:hover{
-    background: rgb(163, 163, 163);
-    border: none;
-    padding: 0%;
+
 }
 
+/* Changed the class selection buttons themselves*/ 
 #clss-selection-box:hover{
     background: rgb(163, 163, 163);
+    /* makes the buttons smaller as well so that the change when hovering is more noticable
     margin: 0%;
     padding: 0%;
     border: none;
+    */
+
 }
 
 #clss-selection-box{
@@ -134,41 +137,64 @@ h1{
   padding-right: 50px;
 }
 
+#poster-info{
+  display: inline-block;
+  width: 40%;
+  padding-left: 30px;
+  margin: 0;
+  font-size: small;
+}
+
+#comment-info{
+  font-size: small;
+  display: inline-block;
+
+}
+
+#comment-header{
+  width: 100%;
+  overflow: none;
+  display: inline-block;
+}
+
 .comment-box{
     outline-style: solid;
+    
     outline-width: 1px;
     outline-color: rgb(153, 144, 144);
     padding: 10px;
     padding-top: 0;
-    padding-right: 15px;
+    padding-right: 0;
+}
+
+#comment-cont{
+  margin: 0;
 }
 
 .accordion-button.collapsed{
-    border-style: solid;
-    border-width: 1px;
-    border-color: rgb(153, 144, 144);
-    border-top: none;
-
+  
+    
 }
 
 .accordion-button:not(.collapsed){
     color: rgb(33, 37, 41);
     background-color: white;
-
+  
+    /*
     border-style: solid;
     border-width: 1px;
     border-color: rgb(153, 144, 144);
     border-bottom: none;
-    border-top: none;
+    border-top: none; */
 }
 
 .accordion-body{
     padding-left: 30px;
     
-
+    /*
     border-style: solid;
     border-width: 1px;
-    border-color: rgb(153, 144, 144);
+    border-color: rgb(153, 144, 144);*/
     
     border-top: none;
 }
@@ -180,8 +206,8 @@ h1{
 .btn.btn-secondary.dropdown-toggle{
 
     position: relative;
-    width: 2%;
-    height: 1%;
+    width: 3%;
+
     text-align: left;
     font-size: 20px;
     color: black;
@@ -195,7 +221,7 @@ h1{
 
     background-color: white;
 
-    left: 99%;
+
 }
 
 .btn-group.dropstart{
@@ -217,7 +243,6 @@ h1{
 }
 
 .accordion, .accordion-item, .accordion-head{
-    
     position: relative;
     left: 50%;
     transform: translate(-50%);
@@ -228,18 +253,17 @@ h1{
 .navbar {
   margin: 11.25px;
   margin-top: 0;
-
 }
 
 #test-cont{
 
-    border-style: solid;
+    /*border-style: solid;
     border-width: 1px;
-    border-color: rgb(153, 144, 144);
-
+    border-color: rgb(153, 144, 144);*/
+    height: 40px;
     border-top: none;
     border-bottom: none;
-
+    overflow: hidden;
     margin-top: 10px;
 }
 
@@ -256,7 +280,9 @@ h1{
     margin: 0 20px;
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex;
+    display: inline-block;
+    position: absolute;
+    left: 96%;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
