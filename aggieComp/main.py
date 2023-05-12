@@ -1,8 +1,3 @@
-#ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
-#anaconda-project 0.10.1 requires ruamel-yaml, which is not installed.
-#cookiecutter 1.7.2 requires Jinja2<3.0.0, but you have jinja2 3.1.2 which is incompatible.
-#cookiecutter 1.7.2 requires MarkupSafe<2.0.0, but you have markupsafe 2.1.2 which is incompatible.
-
 # sessions are temp. as in all the data that is there and being used is "deleted" when the user leaves the web page
 # these can be used to get some info form a db and makes it so that you don't have to keep rereading from the db
 from flask import Flask, redirect, url_for, render_template, request, session, flash, Blueprint
@@ -25,9 +20,6 @@ from compiler import compiler
 from compiler import * 
 from roadmap import roadmap
 from qANDa import qANDa
-
-
-
 
 from dbModels import * # needed so that db and app can be used in this routes file
 
@@ -59,7 +51,7 @@ def load_user(user_id):
 def home():
     return render_template("home.html")
 
-# lets you see all of the users and their hashed passwords as long as they have registered 
+# lets you see all of the users if you are admin and delete the user or make that user your viewing into an admin
 @app.route("/view")
 def view():
     return render_template("view.html", values = users.query.all())
@@ -98,15 +90,18 @@ def register():
     admin = "False"
     if form.validate_on_submit(): # v_on_sub check if it is a post request and if it is valid, returns true if active request
 
-        validEmail =  (re.match(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', form.username.data))
+        validEmail =  (re.match(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', form.username.data)) # regex for an email and compares if the user info is a valid email
 
+        # if the user enter email was valid then you do this stuff
         if validEmail:
-            createdUserName = form.username.data.partition('@')[0]
+            createdUserName = form.username.data.partition('@')[0] # getting the info up until the @ sign in the email. Ex: input = email@.com -> createdUserName = email
 
-            userExist = users.query.filter_by(username = createdUserName).first()
+            userExist = users.query.filter_by(username = createdUserName).first() # quick query looking for a user with the username entered
+
             if userExist:
                 flash("that user already exist")
             else:
+                # no matter what, user with sfransis@nmsu.edu will be an admin
                 if form.username.data == "sfransis@nmsu.edu":
                     admin = "True"
                 hashed_password = bcrypt.generate_password_hash(form.password.data) # getting the users entered password and encrypting it
@@ -127,19 +122,26 @@ def register():
 def deleteAccount():
     form = deleteAccForm()
     if form.validate_on_submit():
-        regUser = users.query.filter_by(username = form.username.data).first() # looking for an entry in the users db that has the same username that was enterd by ther person trying to login
-        if regUser:
-            isSamePass = bcrypt.check_password_hash(regUser.password, form.password.data)
-            if isSamePass:
-                flash("Account has been deleted...")
-                db.session.delete(regUser)
-                db.session.commit()
+        # only allows the user to delete their own account if they're logged in with the account they wish to delete
+        if form.username.data == current_user.username:
+            regUser = users.query.filter_by(username = form.username.data).first() # looking for an entry in the users db that has the same username that was enterd by ther person trying to login
+            if regUser:
+                isSamePass = bcrypt.check_password_hash(regUser.password, form.password.data) # comparing entered password to the password in the database
+                # if the two passwords are the same then if goes through
+                if isSamePass:
+                    flash("Account has been deleted...")
+                    db.session.delete(regUser)
+                    db.session.commit()
+                    return redirect(url_for("login"))
+                else:
+                    flash("Password is incorrect...")
             else:
-                flash("Password is incorrect...")
+                flash("There is no user with that name...")
         else:
-            flash("There is no user with that name...")
+            flash("You can't delete other peoples data...")
     return render_template("deleteAcc.html", form = form)
 
+# allows the admin to delete account in the admin page. Page only shows up for an admin
 @app.route("/adminDeleteAccount/<givenUsername>", methods = ["POST", "GET"])
 def adminDeleteAccount(givenUsername):
     regUser = users.query.filter_by(username = givenUsername).first()
@@ -147,6 +149,7 @@ def adminDeleteAccount(givenUsername):
     db.session.commit()
     return render_template("view.html", values = users.query.all())
 
+# allows the admin to make other users admin in the admin page. Page only shows up for an admin
 @app.route("/makeUserAdmin/<givenUsername>", methods = ["POST", "GET"])
 def makeUserAdmin(givenUsername):
     #setattr(user, 'no_of_logins', user.no_of_logins + 1)
@@ -154,12 +157,6 @@ def makeUserAdmin(givenUsername):
     setattr(regUser, 'isAdmin', "True")
     db.session.commit()
     return render_template("view.html", values = users.query.all())
-
-@app.route("/adminPage")
-@login_required
-def adminPage():
-    userName = current_user.username
-    return render_template("adminPage.html")
 
 if __name__ == "__main__":
     db.create_all() # creates all of the db NOTE that if you want to make a change to the db, you need to replace create_all with drop_all so that current dbs are deleted and then change it back so that the changes are made
