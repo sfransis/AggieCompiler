@@ -4,51 +4,651 @@
 
 {% block pageContent %}
 
-<h1> Student RoadMap </h1>
+<!DOCTYPE html>
+<html>
+<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <link rel="stylesheet" href="{{url_for('static', filename = 'roadmap.css')}}">
+</head>
 <body>
-        <pre>                       <b>Data Structures: </b>                                          <b>Algorithms: </b></pre>
-        <p> <b> CS 172: </b> </p>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="https://leetcode.com/tag/array/"> <button> Arrays </button>  </a> &#8212;
-        <a href="https://leetcode.com/tag/linked-list/"> <button> Linked Lists </button>  </a> &#8212;
-        <a href="https://leetcode.com/tag/stack/"> <button> Stacks & Queues </button>  </a>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="https://leetcode.com/tag/binary-search/"> <button> Searching </button>  </a> &#8212;
-        <a href="https://leetcode.com/tag/sorting/"> <button> Sorting </button>  </a> &#8212;
-        <a href="https://leetcode.com/tag/divide-and-conquer/"> <button> Divide & Conquer </button>  </a> </p>
-        <p> ______________________________________________________________________________________________________________________________________________ </p>
+        <div class="container">
+                <table style="width: 100%; height: 90%;">
+                        <tr>
+                                <td></td>
+                                <td colspan="10"><h2 style="text-align: center; color: #FFFFFF;">Student Roadmap</h2></td>
+                                <td class="col_separator"></td>
+                                
+                        </tr>
+                        <tr>
+                                <td></td>
+                                <td colspan="10"><p style="text-align: center; color: lightblue;">Gives NMSU Computer Science students extra <br> practice problems to help them learn to code.</p></td>
+                                <td class="col_separator"></td>
+                                
+                        </tr>
+                        <tr>
+                                <td></td>
+                                <td colspan="10"><p style="text-align: center; color: white;">You do NOT need to be in this class to practice these problems!.</p></td>
+                                <td class="col_separator"></td>
+                                
+                        </tr>
+                        <tr >
+                                <td><h2 style="color: white">CS172&nbsp;&nbsp;</h2></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Arrays')">Arrays</button></td>
+                                <td><span class="chevron">__</span></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Strings')">Strings</button></td>
+                                <td><span class="chevron">__</span></td></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Counting')"> Counting</button></td>
+                                <td><span class="chevron">__</span></td></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Math')">Math</button></td>
+                                <td><span class="chevron">__</span></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Recursion')">Recursion</button></td>
+                                <td><span class="chevron">__</span></td></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Sorting')">Sorting</button></td>
+                        </tr>
+                        <tr style="color: white;"><td colspan="13"><hr></td></tr>
+                        <tr>
+                                <td><h2 style="color: white">CS271&nbsp;&nbsp;</h2></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Linked Lists')">Linked Lists</button></td>
+                                <td><span class="chevron">__</span></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Queues')">Queues</button></td>
+                                <td><span class="chevron">__</span></td></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Stacks')">Stacks</button></td>
+                                <td><span class="chevron">__</span></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Binary Search')">Binary <br>Search</button></td>
+                                <td><span class="chevron">__</span></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Graphs')">Graphs</button></td>
+                                <td><span class="chevron">__</span></td></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Heaps')">Heaps</button></td>
+                        </tr>
+                        
+                        <tr style="color: white;"><td colspan="13"><hr></td></tr>
+                        <tr>
+                                <td><h2 style="color: white">CS372&nbsp;&nbsp;</h2></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Hash Tables')">Hash Tables</button></td>
+                                <td><span class="chevron">__</span></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Trees')">Trees</button></td>
+                                <td><span class="chevron">__</span></td></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Dynamic Programming')">Dynamic <br> Programming</button></td>
+                                        <!-- Algorithms -->
+                                <td><span class="chevron">__</span></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Breadth-First Search')">Breadth-First Search</button></td>
+                                <td><span class="chevron">__</span></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Depth-First Search')">Depth-First Search</button></td>
+                                <td><span class="chevron">__</span></td></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Divide & Conquer')">Divide <br>& Conquer</button></td>
 
-        <p> <b> CS 271: </b> </p>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="https://leetcode.com/tag/doubly-linked-list/"> <button> Double Linked Lists </button>  </a> &#8212;
-        <a href="https://leetcode.com/tag/heap-priority-queue/"> <button> Heaps </button>  </a> &#8212; 
-        <a href="http://127.0.0.1:5000/"> <button> AVL Trees </button>  </a>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="https://leetcode.com/tag/breadth-first-search/"> <button> Breadth-First Search </button>  </a> &#8212;
-        <a href="https://leetcode.com/tag/depth-first-search/"> <button> Depth-First Search </button>  </a> &#8212;
-        <a href="http://127.0.0.1:5000/"> <button> Kruskal's </button>  </a> </p>
+                        </tr>
 
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / </p>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="http://127.0.0.1:5000/"> <button> Binary Trees </button>  </a> &#8212;
-        <a href="http://127.0.0.1:5000/"> <button> Graphs </button>  </a> </p>
-         <p> ______________________________________________________________________________________________________________________________________________ </p>
+                        <tr>
+                                <td><h2 style="color: white">&nbsp;&nbsp;</h2></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Hash Function')">Hash <br>Function</button></td>
+                                <td><span class="chevron">__</span></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Double Linked Lists')">Double <br>Linked Lists</button></td>
+                                <td><span class="chevron">__</span></td></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Advanced Graphs')">Advanced <br>Graphs</button></td>
+                                <td><span class="chevron">__</span></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Union Find')">Union Find</button></td>
+                                <td><span class="chevron">__</span></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Merge Sort')">Merge <br>Sort</button></td>
+                                <td><span class="chevron">__</span></td>
+                                <td><button type="button" class="btn" onclick="openPopup('Backtracking')">Backtracking</button></td>
+                        </tr>
 
-         <p> <b> CS 371: </b> </p>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="http://127.0.0.1:5000/"> <button> Hash Maps </button>  </a> &#8212;
-        <a href="http://127.0.0.1:5000/"> <button> Dynamic Programming </button>  </a> &#8212; 
-        <a href="http://127.0.0.1:5000/"> <button> Advanced Graphs </button>  </a>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="http://127.0.0.1:5000/"> <button> Union Find </button>  </a> &#8212;
-        <a href="http://127.0.0.1:5000/"> <button> Dykstra's </button>  </a>  </p>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | </p>
-        <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="http://127.0.0.1:5000/"> <button> Divide & Conquer </button>  </a> &#8212;
-        <a href="http://127.0.0.1:5000/"> <button> Backtracking </button>  </a> </p>
+                </table>
+                
+        
+                <div class="popup" id="popup"style="overflow-y: auto; height: 500px;">
+                        <button type="button" onclick="closePopup()">X</button>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/NMSU_seal.png">
+                        <p id="popup-ques"></p>
+                        <h2 id="popup-title"> </h2>
+                        <p id="popup-content"></p>
+                        <b id="popup-sol"></b>
+                        <h2 id="popup-title-two"> </h2>
+                        <p id="popup-content-two"></p>
+                        <b id="popup-sol-two"></b>
+                        <h2 id="popup-title-three"> </h2>
+                        <p id="popup-content-three"></p>
+                        <b id="popup-sol-three"></b>
+                </div>
+        </div>
 
 
+
+<script>
+/* JavaScript for popup */
+let popup = document.getElementById("popup");
+let popupQues = document.getElementById("popup-ques");
+let popupTitle = document.getElementById("popup-title");
+let popupTitleTwo = document.getElementById("popup-title-two");
+let popupTitleThree = document.getElementById("popup-title-three");
+let popupContent = document.getElementById("popup-content");
+let popupContentTwo = document.getElementById("popup-content-two");
+let popupContentThree = document.getElementById("popup-content-three");
+let popupSol = document.getElementById("popup-sol");
+let popupSolTwo = document.getElementById("popup-sol-two");
+let popupSolThree = document.getElementById("popup-sol-three");
+
+/* Embeded videos */
+var iframe1 = document.createElement('iframe');
+var iframe2 = document.createElement('iframe');
+var iframe3 = document.createElement('iframe');
+
+iframe1.width = '300';
+iframe1.height = '300';
+iframe1.allowfullscreen = true;
+
+iframe2.width = '300';
+iframe2.height = '300';
+iframe2.allowfullscreen = true;
+
+iframe3.width = '300';
+iframe3.height = '300';
+iframe3.allowfullscreen = true;
+
+
+/* Opens popup */
+function openPopup(contentType){
+        debugger;
+        updatePopupContent(contentType)
+        popup.classList.add("open-popup");
+}
+
+/* Adds content to popup */
+function updatePopupContent(contentType){
+        /* Arrays */
+        if(contentType == "Arrays"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Two Sum: Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice."
+                popupSol.textContent = "Need help?:";
+                iframe1.src = 'https://www.youtube.com/embed/Dt3JSYf8SYw';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Find and Replace Pattern: Given a list of strings words and a string pattern, return a list of words[i] that match pattern. You may return the answer in any order."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/V8W_Nmuruis';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Reverse Pairs: Given an integer array nums, return the number of reverse pairs in the array. A reverse pair is a pair (i, j) where: 0 <= i < j < nums.length and nums[i] > 2 * nums[j]."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/S6rsAlj_iB4';
+                popupSolThree.appendChild(iframe3);
+        }
+
+        /* Strings */
+        if(contentType == "Strings"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "To Lower Case: Given a string s, return the string after replacing every uppercase letter with the same lowercase letter."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/Ifk0Z85YDk8';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Remove Duplicate Letters: Given a string s, remove duplicate letters so that every letter appears once and only once. You must make sure your result is the smallest in lexicographical order among all possible results."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/j313ttNJjo0';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Longest Valid Parentheses: Given a string containing just the characters '(' and ')', return the length of the longest valid (well-formed) parentheses substring."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/q56S5NIqjdE';
+                popupSolThree.appendChild(iframe3);
+
+        }
+
+        /* Trees */
+        if(contentType == "Trees"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Range Sum of BST: Given the root node of a binary search tree and two integers low and high, return the sum of values of all nodes with a value in the inclusive range [low, high]."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/KUVXwUGmY3k';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Maximum Binary Tree: You are given an integer array nums with no duplicates. A maximum binary tree can be built recursively from nums using the following algorithm: Create a root node whose value is the maximum value in nums. Recursively build the left subtree on the subarray prefix to the left of the maximum value. Recursively build the right subtree on the subarray suffix to the right of the maximum value. Return the maximum binary tree built from nums."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/l1OlA5ifFAg';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Number of Good Paths: There is a tree (i.e. a connected, undirected graph with no cycles) consisting of n nodes numbered from 0 to n - 1 and exactly n - 1 edges. You are given a 0-indexed integer array vals of length n where vals[i] denotes the value of the ith node. You are also given a 2D integer array edges where edges[i] = [ai, bi] denotes that there exists an undirected edge connecting nodes ai and bi. A good path is a simple path that satisfies the following conditions: The starting node and the ending node have the same value. All nodes between the starting node and the ending node have values less than or equal to the starting node (i.e. the starting node's value should be the maximum value along the path). Return the number of distinct good paths. Note that a path and its reverse are counted as the same path. For example, 0 -> 1 is considered to be the same as 1 -> 0. A single node is also considered as a valid path."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/rv2GBYQm7xM';
+                popupSolThree.appendChild(iframe3);
+
+        }
+
+        /* Counting */
+        if(contentType == "Counting"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Number of Good Pairs: Given an array of integers nums, return the number of good pairs. A pair (i, j) is called good if nums[i] == nums[j] and i < j."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/TOpIszBSSOU';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Minimum Number of Steps to Make Two Strings Anagram: You are given two strings of the same length s and t. In one step you can choose any character of t and replace it with another character. Return the minimum number of steps to make t an anagram of s. An Anagram of a string is a string that contains the same characters with a different (or the same) ordering."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/hgBjY3KfLFc';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Subarrays with K Different Integers: Given an integer array nums and an integer k, return the number of good subarrays of nums. A good array is an array where the number of different integers in that array is exactly k. For example, [1,2,3,1,2] has 3 different integers: 1, 2, and 3. A subarray is a contiguous part of an array."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/88mGJqbnPVw';
+                popupSolThree.appendChild(iframe3);
+
+        }
+
+        /* Math */
+        if(contentType == "Math"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Add Two Integers: Given two integers num1 and num2, return the sum of the two integers."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/iNrtkKZ4rTA';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Multiply Strings: Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string. Note: You must not use any built-in BigInteger library or convert the inputs to integer directly."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/1vZswirL8Y8';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Nth Magical Number: A positive integer is magical if it is divisible by either a or b. Given the three integers n, a, and b, return the nth magical number. Since the answer may be very large, return it modulo 10^9 + 7."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/LMi0zuJgJD0';
+                popupSolThree.appendChild(iframe3);
+
+        }
+
+        /* Recursion */
+        if(contentType == "Recursion"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Reverse Linked List: Given the head of a singly linked list, reverse the list, and return the reversed list."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/G0_I-ZF0S38';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Swap Nodes in Pairs: Given a linked list, swap every two adjacent nodes and return its head. You must solve the problem without modifying the values in the list's nodes (i.e., only nodes themselves may be changed.)"
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/o811TZLAWOo';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Reverse Nodes in k-Group: Given the head of a linked list, reverse the nodes of the list k at a time, and return the modified list. k is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of k then left-out nodes, in the end, should remain as it is. You may not alter the values in the list's nodes, only nodes themselves may be changed."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/1UOPsfP85V4';
+                popupSolThree.appendChild(iframe3);
+
+        }
+
+        /* Linked Lists */
+        else if(contentType == "Linked Lists"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Middle of the Linked List: Given the head of a singly linked list, return the middle node of the linked list.If there are two middle nodes, return the second middle node."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/_cl3O4FBZh8';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Rotate List: Given the head of a linked list, rotate the list to the right by k places."
+                popupSolTwo.textContent = "Need help?:";
+                iframe2.src = 'https://www.youtube.com/embed/UcGtPs2LE_c';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Merge K Sorted Lists: You are given an array of k linked-lists lists, each linked-list is sorted in ascending order."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/kpCesr9VXDA';
+                popupSolThree.appendChild(iframe3);
+        }
+
+        /* Queues */
+        else if(contentType == "Queues"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Implement Stack using Queues: Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty)."
+                popupSol.textContent = "Need help?:";
+                iframe1.src = 'https://www.youtube.com/embed/qHwist_kvpk';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Product of the Last K Numbers: Design an algorithm that accepts a stream of integers and retrieves the product of the last k integers of the stream."
+                popupSolTwo.textContent = "Need help?:";
+                iframe2.src = 'https://www.youtube.com/embed/EVLxXU9vuAE';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Max Value of Equation: You are given an array points containing the coordinates of points on a 2D plane, sorted by the x-values, where points[i] = [xi, yi] such that xi < xj for all 1 <= i < j <= points.length. You are also given an integer k. Return the maximum value of the equation yi + yj + |xi - xj| where |xi - xj| <= k and 1 <= i < j <= points.length. It is guaranteed that there exists at least one pair of points that satisfy the constraint |xi - xj| <= k."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/mSnghkVXyvA';
+                popupSolThree.appendChild(iframe3);
+        }
+
+        /* Binary Search */
+        else if(contentType == "Binary Search"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Intersection of Two Arrays: Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must be unique and you may return the result in any order."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/XZ6ZL1Qg6og';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Capacity To Ship Packages Within D Days: A conveyor belt has packages that must be shipped from one port to another within days days. The ith package on the conveyor belt has a weight of weights[i]. Each day, we load the ship with packages on the conveyor belt (in the order given by weights). We may not load more weight than the maximum weight capacity of the ship. Return the least weight capacity of the ship that will result in all the packages on the conveyor belt being shipped within days days."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/ER_oLmdc-nw';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Swim in Rising Water: You are given an n x n integer matrix grid where each value grid[i][j] represents the elevation at that point (i, j). The rain starts to fall. At time t, the depth of the water everywhere is t. You can swim from a square to another 4-directionally adjacent square if and only if the elevation of both squares individually are at most t. You can swim infinite distances in zero time. Of course, you must stay within the boundaries of the grid during your swim. Return the least time until you can reach the bottom right square (n - 1, n - 1) if you start at the top left square (0, 0)."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/amvrKlMLuGY';
+                popupSolThree.appendChild(iframe3);
+        }
+
+        /* Sorting */
+        else if(contentType == "Sorting"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Sorting the Sentence: A sentence is a list of words that are separated by a single space with no leading or trailing spaces. Each word consists of lowercase and uppercase English letters. A sentence can be shuffled by appending the 1-indexed word position to each word then rearranging the words in the sentence. For example, the sentence \"This is a sentence\" can be shuffled as \"sentence4 a3 is2 This1\" or \"is2 sentence4 This1 a3\". Given a shuffled sentence s containing no more than 9 words, reconstruct and return the original sentence."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/Pa93NiDZFNQ';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Sort the Students by Their Kth Score: There is a class with m students and n exams. You are given a 0-indexed m x n integer matrix score, where each row represents one student and score[i][j] denotes the score the ith student got in the jth exam. The matrix score contains distinct integers only. You are also given an integer k. Sort the students (i.e., the rows of the matrix) by their scores in the kth (0-indexed) exam from the highest to the lowest. Return the matrix after sorting it."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/xZJ_n7xXYas';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Closest Room: There is a hotel with n rooms. The rooms are represented by a 2D integer array rooms where rooms[i] = [roomIdi, sizei] denotes that there is a room with room number roomIdi and size equal to sizei. Each roomIdi is guaranteed to be unique. You are also given k queries in a 2D array queries where queries[j] = [preferredj, minSizej]. The answer to the jth query is the room number id of a room such that: The room has a size of at least minSizej, and abs(id - preferredj) is minimized, where abs(x) is the absolute value of x. If there is a tie in the absolute difference, then use the room with the smallest such id. If there is no such room, the answer is -1. Return an array answer of length k where answer[j] contains the answer to the jth query."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/DWVULNTNtRM';
+                popupSolThree.appendChild(iframe3);
+        }
+
+        /* Divide & Conquer */
+        else if(contentType == "Divide & Conquer"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Number of 1 Bits: Write a function that takes the binary representation of an unsigned integer and returns the number of '1' bits it has (also known as the Hamming weight). Note: In some languages, such as Java, there is no unsigned integer type. In this case, the input will be given as a signed integer type. It should not affect your implementation, as the integer's internal binary representation is the same, whether it is signed or unsigned. In Java, the compiler represents the signed integers using 2's complement notation. Therefore, in Example 3, the input represents the signed integer. -3."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/5Km3utixwZs';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Kth Largest Element in an Array: Given an integer array nums and an integer k, return the kth largest element in the array. Note that it is the kth largest element in the sorted order, not the kth distinct element. You must solve it in O(n) time complexity."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/XEmy13g1Qxc';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Count of Range Sum: Given an integer array nums and two integers lower and upper, return the number of range sums that lie in [lower, upper] inclusive. Range sum S(i, j) is defined as the sum of the elements in nums between indices i and j inclusive, where i <= j."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/q9klWcNZQvo';
+                popupSolThree.appendChild(iframe3);
+        }
+        /* Double Linked Lists */
+        else if(contentType == "Double Linked Lists"){
+                
+                popupTitle.textContent = "Medium:";
+                popupContent.textContent = "Design Browser History: You have a browser of one tab where you start on the homepage and you can visit another url, get back in the history number of steps or move forward in the history number of steps. Implement the BrowserHistory class: BrowserHistory(string homepage) Initializes the object with the homepage of the browser. void visit(string url) Visits url from the current page. It clears up all the forward history. string back(int steps) Move steps back in history. If you can only return x steps in the history and steps > x, you will return only x steps. Return the current url after moving back in history at most steps. string forward(int steps) Move steps forward in history. If you can only forward x steps in the history and steps > x, you will forward only x steps. Return the current url after forwarding in history at most steps."
+                popupSol.textContent = "Need help?:";
+                iframe1.src = 'https://www.youtube.com/embed/qBAZGrwNmZw';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Hard:";
+                popupContentTwo.textContent = "Design a Text Editor: Design a text editor with a cursor that can do the following: Add text to where the cursor is. Delete text from where the cursor is (simulating the backspace key). Move the cursor either left or right. When deleting text, only characters to the left of the cursor will be deleted. The cursor will also remain within the actual text and cannot be moved beyond it. More formally, we have that 0 <= cursor.position <= currentText.length always holds. Implement the TextEditor class: TextEditor() Initializes the object with empty text. void addText(string text) Appends text to where the cursor is. The cursor ends to the right of text. int deleteText(int k) Deletes k characters to the left of the cursor. Returns the number of characters actually deleted. string cursorLeft(int k) Moves the cursor to the left k times. Returns the last min(10, len) characters to the left of the cursor, where len is the number of characters to the left of the cursor. string cursorRight(int k) Moves the cursor to the right k times. Returns the last min(10, len) characters to the left of the cursor, where len is the number of characters to the left of the cursor."
+                popupSolTwo.textContent = "Need help?:";
+                iframe2.src = 'https://www.youtube.com/embed/ASWavSuip1I';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "";
+                popupContentThree.textContent = ""
+                popupSolThree.textContent = "";
+                iframe3.src = '';
+
+        }
+
+        /* Heaps */
+        else if(contentType == "Heaps"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Maximum Product of Two Elements in an Array: Given the array of integers nums, you will choose two different indices i and j of that array. Return the maximum value of (nums[i]-1)*(nums[j]-1)."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/bmNG_erfNEI';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Smallest Number in Infinite Set: You have a set which contains all positive integers [1, 2, 3, 4, 5, ...]. Implement the SmallestInfiniteSet class: SmallestInfiniteSet() Initializes the SmallestInfiniteSet object to contain all positive integers. int popSmallest() Removes and returns the smallest integer contained in the infinite set. void addBack(int num) Adds a positive integer num back into the infinite set, if it is not already in the infinite set."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/cR3MBOOK0BY';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Find the Kth Smallest Sum of a Matrix With Sorted Rows: You are given an m x n matrix mat that has its rows sorted in non-decreasing order and an integer k. You are allowed to choose exactly one element from each row to form an array. Return the kth smallest array sum among all possible arrays."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/ZYlVCy_vRp8';
+                popupSolThree.appendChild(iframe3);
+
+        }
+        /* Stacks */
+        else if(contentType == "Stacks"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Valid Parentheses: Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid. An input string is valid if: Open brackets must be closed by the same type of brackets. Open brackets must be closed in the correct order. Every close bracket has a corresponding open bracket of the same type."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/WTzjTskDFMg';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Removing Stars From a String: You are given a string s, which contains stars *. In one operation, you can: Choose a star in s. Remove the closest non-star character to its left, as well as remove the star itself. Return the string after all stars have been removed."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/3H1WeU0Kxu8';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Number of Visible People in a Queue: There are n people standing in a queue, and they numbered from 0 to n - 1 in left to right order. You are given an array heights of distinct integers where heights[i] represents the height of the ith person. A person can see another person to their right in the queue if everybody in between is shorter than both of them. More formally, the ith person can see the jth person if i < j and min(heights[i], heights[j]) > max(heights[i+1], heights[i+2], ..., heights[j-1]). Return an array answer of length n where answer[i] is the number of people the ith person can see to their right in the queue."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/nzRG4dV4F_8';
+                popupSolThree.appendChild(iframe3);
+
+        }
+
+        /* Graphs */
+        else if(contentType == "Graphs"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Find Center of Star Graph: There is an undirected star graph consisting of n nodes labeled from 1 to n. A star graph is a graph where there is one center node and exactly n - 1 edges that connect the center node with every other node. You are given a 2D integer array edges where each edges[i] = [ui, vi] indicates that there is an edge between the nodes ui and vi. Return the center of the given star graph."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/QFFjjOGEQpU';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "All Paths From Source to Target: Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1, find all possible paths from node 0 to node n - 1 and return them in any order. The graph is given as follows: graph[i] is a list of all nodes you can visit from node i (i.e., there is a directed edge from node i to node graph[i][j])."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/SZ3zpzQk2jg';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Shortest Path Visiting All Nodes: You have an undirected, connected graph of n nodes labeled from 0 to n - 1. You are given an array graph where graph[i] is a list of all the nodes connected with node i by an edge. Return the length of the shortest path that visits every node. You may start and stop at any node, you may revisit nodes multiple times, and you may reuse edges."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/1XkMFNvkouo';
+                popupSolThree.appendChild(iframe3);
+
+        }
+        /* Breadth-First Search */
+        else if(contentType == "Breadth-First Search"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Merge Two Binary Trees: You are given two binary trees root1 and root2. Imagine that when you put one of them to cover the other, some nodes of the two trees are overlapped while the others are not. You need to merge the two trees into a new binary tree. The merge rule is that if two nodes overlap, then sum node values up as the new value of the merged node. Otherwise, the NOT null node will be used as the node of the new tree. Return the merged tree."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/QHH6rIK3dDQ';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Deepest Leaves Sum: Given the root of a binary tree, return the sum of values of its deepest leaves."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/jxYPvLqxm_Y';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Sliding Puzzle: On an 2 x 3 board, there are five tiles labeled from 1 to 5, and an empty square represented by 0. A move consists of choosing 0 and a 4-directionally adjacent number and swapping it. The state of the board is solved if and only if the board is [[1,2,3],[4,5,0]]. Given the puzzle board board, return the least number of moves required so that the state of the board is solved. If it is impossible for the state of the board to be solved, return -1."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/YP9ElstYN-k';
+                popupSolThree.appendChild(iframe3);
+
+        }
+        /* Depth-First Search */
+        else if(contentType == "Depth-First Search"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Range Sum of BST: Given the root node of a binary search tree and two integers low and high, return the sum of values of all nodes with a value in the inclusive range [low, high]."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/KUVXwUGmY3k';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Reverse Odd Levels of Binary Tree: Given the root of a perfect binary tree, reverse the node values at each odd level of the tree. For example, suppose the node values at level 3 are [2,1,3,4,7,11,29,18], then it should become [18,29,11,7,4,3,1,2]. Return the root of the reversed tree. A binary tree is perfect if all parent nodes have two children and all leaves are on the same level. The level of a node is the number of edges along the path between it and the root node."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/JjuQHV01MMo';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Recover a Tree From Preorder Traversal: We run a preorder depth-first search (DFS) on the root of a binary tree. At each node in this traversal, we output D dashes (where D is the depth of this node), then we output the value of this node.  If the depth of a node is D, the depth of its immediate child is D + 1.  The depth of the root node is 0. If a node has only one child, that child is guaranteed to be the left child. Given the output traversal of this traversal, recover the tree and return its root."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/wxPz9yjrklw';
+                popupSolThree.appendChild(iframe3);
+
+        }
+        /* Merge Sort */
+        else if(contentType == "Merge Sort"){
+                
+                popupTitle.textContent = "Medium:";
+                popupContent.textContent = "Sort an Array: Given an array of integers nums, sort the array in ascending order and return it. You must solve the problem without using any built-in functions in O(nlog(n)) time complexity and with the smallest space complexity possible."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/MsYZSinhuFo';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Hard:";
+                popupContentTwo.textContent = "Merge k Sorted Lists: You are given an array of k linked-lists lists, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/q5a5OiGbT6Q';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "";
+                popupContentThree.textContent = ""
+                popupSolThree.textContent = "";
+                iframe3.src = '';
+                
+
+        }
+        /* Hash Tables */
+        else if(contentType == "Hash Tables"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Two Out of Three: Given three integer arrays nums1, nums2, and nums3, return a distinct array containing all the values that are present in at least two out of the three arrays. You may return the values in any order."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/6_Dqb4zhS9Y';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Optimal Partition of String: Given a string s, partition the string into one or more substrings such that the characters in each substring are unique. That is, no letter appears in a single substring more than once. Return the minimum number of substrings in such a partition. Note that each character should belong to exactly one substring in a partition.";
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/CKZPdiXiQf0';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Number of Submatrices That Sum to Target: Given a matrix and a target, return the number of non-empty submatrices that sum to target. A submatrix x1, y1, x2, y2 is the set of all cells matrix[x][y] with x1 <= x <= x2 and y1 <= y <= y2. Two submatrices (x1, y1, x2, y2) and (x1', y1', x2', y2') are different if they have some coordinate that is different: for example, if x1 != x1'."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/elADMOC_hDI';
+                popupSolThree.appendChild(iframe3);
+
+        }
+        /* Dynamic Programming */
+        else if(contentType == "Dynamic Programming"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Counting Bits: Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/RyBM56RIWrM';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Generate Parentheses: Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/s9fokUqJ76A';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Maximum Score Words Formed by Letters: Given a list of words, list of  single letters (might be repeating) and score of every character. Return the maximum score of any valid set of words formed by using the given letters (words[i] cannot be used two or more times). It is not necessary to use all characters in letters and each letter can only be used once. Score of letters 'a', 'b', 'c', ... ,'z' is given by score[0], score[1], ... , score[25] respectively."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/qIN-c5brHoQ';
+                popupSolThree.appendChild(iframe3);
+
+        }
+        /* Advanced Graphs */
+        else if(contentType == "Advanced Graphs"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Find the Town Judge: In a town, there are n people labeled from 1 to n. There is a rumor that one of these people is secretly the town judge. If the town judge exists, then: The town judge trusts nobody. Everybody (except for the town judge) trusts the town judge. There is exactly one person that satisfies properties 1 and 2. You are given an array trust where trust[i] = [ai, bi] representing that the person labeled ai trusts the person labeled bi. If a trust relationship does not exist in trust array, then such a trust relationship does not exist. Return the label of the town judge if the town judge exists and can be identified, or return -1 otherwise."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/2AdzmA1IC1k';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Keys and Rooms: There are n rooms labeled from 0 to n - 1 and all the rooms are locked except for room 0. Your goal is to visit all the rooms. However, you cannot enter a locked room without having its key. When you visit a room, you may find a set of distinct keys in it. Each key has a number on it, denoting which room it unlocks, and you can take all of them with you to unlock the other rooms. Given an array rooms where rooms[i] is the set of keys that you can obtain if you visited room i, return true if you can visit all the rooms, or false otherwise."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/8iUFLUIeK9k';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Sum of Distances in Tree: There is an undirected connected tree with n nodes labeled from 0 to n - 1 and n - 1 edges. You are given the integer n and the array edges where edges[i] = [ai, bi] indicates that there is an edge between nodes ai and bi in the tree. Return an array answer of length n where answer[i] is the sum of the distances between the ith node in the tree and all other nodes."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/dkPYrvq5EmY';
+                popupSolThree.appendChild(iframe3);
+
+        }
+        /* Union Find */
+        else if(contentType == "Union Find"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Find if Path Exists in Graph: There is a bi-directional graph with n vertices, where each vertex is labeled from 0 to n - 1 (inclusive). The edges in the graph are represented as a 2D integer array edges, where each edges[i] = [ui, vi] denotes a bi-directional edge between vertex ui and vertex vi. Every vertex pair is connected by at most one edge, and no vertex has an edge to itself. You want to determine if there is a valid path that exists from vertex source to vertex destination. Given edges and the integers n, source, and destination, return true if there is a valid path from source to destination, or false otherwise."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/hBeFkdxvHIU';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Max Area of Island: You are given an m x n binary matrix grid. An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical.) You may assume all four edges of the grid are surrounded by water. The area of an island is the number of cells with a value 1 in the island. Return the maximum area of an island in grid. If there is no island, return 0."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/iJGr1OtmH0c';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Swim in Rising Water: You are given an n x n integer matrix grid where each value grid[i][j] represents the elevation at that point (i, j). The rain starts to fall. At time t, the depth of the water everywhere is t. You can swim from a square to another 4-directionally adjacent square if and only if the elevation of both squares individually are at most t. You can swim infinite distances in zero time. Of course, you must stay within the boundaries of the grid during your swim. Return the least time until you can reach the bottom right square (n - 1, n - 1) if you start at the top left square (0, 0)."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/amvrKlMLuGY';
+                popupSolThree.appendChild(iframe3);
+
+        }
+        /* Hash Function */
+        else if(contentType == "Hash Function"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Design HashSet: Design a HashSet without using any built-in hash table libraries. Implement MyHashSet class: void add(key) Inserts the value key into the HashSet. bool contains(key) Returns whether the value key exists in the HashSet or not.void remove(key) Removes the value key in the HashSet. If key does not exist in the HashSet, do nothing."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/U79BoHTcCYw';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "K Divisible Elements Subarrays: Given an integer array nums and two integers k and p, return the number of distinct subarrays which have at most k elements divisible by p. Two arrays nums1 and nums2 are said to be distinct if: They are of different lengths, or There exists at least one index i where nums1[i] != nums2[i]. A subarray is defined as a non-empty contiguous sequence of elements in an array."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/GzWGBWDmhN0';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "Shortest Palindrome: You are given a string s. You can convert s to a palindrome by adding characters in front of it. Return the shortest palindrome you can find by performing this transformation."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/9vo9NgIXifY';
+                popupSolThree.appendChild(iframe3);
+
+        }
+        /* Backtracking */
+        else if(contentType == "Backtracking"){
+                
+                popupTitle.textContent = "Easy:";
+                popupContent.textContent = "Binary Tree Paths: Given the root of a binary tree, return all root-to-leaf paths in any order."
+                popupSol.textContent = "Need help?:"
+                iframe1.src = 'https://www.youtube.com/embed/H2D4HcVZq_g';
+                popupSol.appendChild(iframe1);
+                popupTitleTwo.textContent = "Medium:";
+                popupContentTwo.textContent = "Permutations: Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order."
+                popupSolTwo.textContent = "Need help?:"
+                iframe2.src = 'https://www.youtube.com/embed/s7AvT7cGdSo';
+                popupSolTwo.appendChild(iframe2);
+                popupTitleThree.textContent = "Hard:";
+                popupContentThree.textContent = "N-Queens: The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other. Given an integer n, return all distinct solutions to the n-queens puzzle. You may return the answer in any order. Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space, respectively."
+                popupSolThree.textContent = "Need help?:";
+                iframe3.src = 'https://www.youtube.com/embed/Ph95IHmRp5M';
+                popupSolThree.appendChild(iframe3);
+        }
+}
+
+/* Closes popup */
+function closePopup(){
+        popup.classList.remove("open-popup");
+}
+</script>
 </body>
+</html>
 
 {% endblock %}
